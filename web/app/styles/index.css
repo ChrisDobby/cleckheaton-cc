@@ -1,0 +1,27 @@
+.page {
+  height: 100%;
+  background-color: #0072ce;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.scroll-container {
+  position: relative;
+  margin-top: 104px;
+}
+
+main {
+  position: relative;
+  padding-left: 16px;
+  color: #fff;
+}

@@ -1,32 +1,39 @@
+import { useLoaderData } from 'remix';
+import { getClient } from '~/sanity/getClient';
+import Header from '../components/header';
+import UpcomingFixtures from '../components/upcomingFixtures';
+
+import headerStyles from '../components/header.css';
+import indexStyles from '../styles/index.css';
+
+export async function loader() {
+  const fixtures = await getClient().fetch(
+    `*[_type == "fixture" && matchDate >= now()][0...4]{ _id, matchDate, opposition, team, venue, preview }`
+  );
+
+  return { fixtures };
+}
+
+export const links = () => [
+  { rel: 'stylesheet', href: headerStyles },
+  { rel: 'stylesheet', href: indexStyles },
+];
+
 export default function Index() {
+  const { fixtures } = useLoaderData();
+  console.log(fixtures);
   return (
-    <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}>
-      <h1>Welcome to Remix</h1>
-      <ul>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/blog"
-            rel="noreferrer"
-          >
-            15m Quickstart Blog Tutorial
-          </a>
-        </li>
-        <li>
-          <a
-            target="_blank"
-            href="https://remix.run/tutorials/jokes"
-            rel="noreferrer"
-          >
-            Deep Dive Jokes App Tutorial
-          </a>
-        </li>
-        <li>
-          <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
-            Remix Docs
-          </a>
-        </li>
-      </ul>
+    <div className='page'>
+      <div className='main-wrapper'>
+        <div className='main'>
+          <Header />
+          <div className='scroll-container'>
+            <main>
+              <UpcomingFixtures fixtures={fixtures} />
+            </main>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
