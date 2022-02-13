@@ -14,10 +14,11 @@ const Fixture = ({ fixture }: { fixture: Fixture }) => {
     fixture.venue === 'Home' ? fixture.opposition : `${fixture.team} team`;
 
   return (
-    <div className='fixture'>
-      <div className='fixture-date'>
+    <article className='fixture'>
+      <h4 className='fixture-date'>
         {format(new Date(fixture.matchDate), 'dd-MMM (HH:mm)')}
-      </div>
+      </h4>
+      <h5 className='fixture-competition'>{fixture.competition.name}</h5>
       <p className='fixture-description'>
         {homeTeam}
         <br />
@@ -28,7 +29,7 @@ const Fixture = ({ fixture }: { fixture: Fixture }) => {
       <div className='fixture-preview-link'>
         {fixture.preview && <Link to={`/preview/${fixture._id}`}>Preview</Link>}
       </div>
-    </div>
+    </article>
   );
 };
 

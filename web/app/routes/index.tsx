@@ -19,7 +19,7 @@ const sortFixtures = (f1: Fixture, f2: Fixture) => {
 export async function loader() {
   const fixtures = (
     await getClient().fetch(
-      `*[_type == "fixture" && matchDate >= now()][0...4]{ _id, matchDate, opposition, team, venue, preview }`
+      `*[_type == "fixture" && matchDate >= now()][0...4]{ _id, matchDate, opposition, team, venue, preview, competition->{name} }`
     )
   ).sort(sortFixtures);
 

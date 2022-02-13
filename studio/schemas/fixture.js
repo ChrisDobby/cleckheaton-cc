@@ -22,6 +22,13 @@ export default {
       options: { list: ['1st', '2nd'], layout: 'radio' },
     },
     {
+      name: 'competition',
+      title: 'Competition',
+      type: 'reference',
+      to: [{ type: 'competition' }],
+      validation: (Rule) => Rule.required(),
+    },
+    {
       name: 'venue',
       title: 'Venue',
       type: 'string',

@@ -16,6 +16,12 @@
   font-weight: 600;
   padding-bottom: 4px;
   border-bottom: 1px solid #fff;
+  margin: 0;
+}
+
+.fixture-competition {
+  margin: 0;
+  margin-top: 8px;
 }
 
 .fixture-description {
