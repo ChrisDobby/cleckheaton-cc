@@ -6,6 +6,9 @@
 .main-wrapper {
   display: flex;
   flex-direction: column;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .main {
@@ -17,7 +20,6 @@
 
 .scroll-container {
   position: relative;
-  margin-top: 104px;
 }
 
 main {
