@@ -4,4 +4,5 @@ export type Fixture = {
   opposition: string;
   preview?: string;
   team: string;
+  venue: string;
 };

@@ -1,0 +1,38 @@
+.fixtures-container {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+}
+
+.fixture {
+  background-color: #00529e;
+  border-radius: 4px;
+  margin-right: 8px;
+  padding: 8px;
+  min-width: 180px;
+}
+
+.fixture-date {
+  font-weight: 600;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #fff;
+}
+
+.fixture-description {
+  text-align: center;
+}
+
+.fixture-preview-link {
+  height: 20px;
+  color: #fff;
+}
+
+.fixture-preview-link a {
+  color: #fff;
+}
+
+@media screen and (min-width: 768px) {
+  .fixture {
+    min-width: 20%;
+  }
+}
