@@ -4,6 +4,12 @@
   display: flex;
 }
 
+.fixtures-label {
+  font-size: 0.875rem;
+  color: #000;
+  font-weight: 600;
+}
+
 .fixture {
   background-color: #00529e;
   border-radius: 4px;

@@ -40,7 +40,7 @@ const UpcomingFixtures = ({ fixtures }: Props) => {
 
   return (
     <>
-      <p style={{ fontSize: '0.875rem' }}>Upcoming fixtures</p>
+      <p className='fixtures-label'>UPCOMING FIXTURES</p>
       <div className='fixtures-container'>
         {fixtures.map((fixture) => (
           <Fixture key={fixture._id} fixture={fixture} />
