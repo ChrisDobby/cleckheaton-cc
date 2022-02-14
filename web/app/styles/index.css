@@ -20,6 +20,12 @@
 
 .scroll-container {
   position: relative;
+  background-image: url('/background.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-position-y: 16px;
+  min-height: 100%;
 }
 
 main {
