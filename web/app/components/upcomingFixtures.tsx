@@ -9,14 +9,17 @@ type Props = {
 
 const Fixture = ({ fixture }: { fixture: Fixture }) => {
   const homeTeam =
-    fixture.venue === 'Home' ? `${fixture.team} team` : fixture.opposition;
+    fixture.venue === 'Home' ? 'Cleckheaton' : fixture.opposition;
   const awayTeam =
-    fixture.venue === 'Home' ? fixture.opposition : `${fixture.team} team`;
+    fixture.venue === 'Home' ? fixture.opposition : 'Cleckheaton';
 
   return (
     <article className='fixture'>
-      <h4 className='fixture-date'>
-        {format(new Date(fixture.matchDate), 'dd-MMM (HH:mm)')}
+      <h4 className='fixture-date-team'>
+        <span className='fixture-date'>
+          {format(new Date(fixture.matchDate), 'dd-MMM (HH:mm)')}
+        </span>
+        <span>{`${fixture.team} team`}</span>
       </h4>
       <h5 className='fixture-competition'>{fixture.competition.name}</h5>
       <p className='fixture-description'>

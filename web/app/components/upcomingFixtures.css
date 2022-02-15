@@ -15,15 +15,20 @@
   border-radius: 4px;
   margin-right: 8px;
   padding: 8px;
-  min-width: 180px;
+  min-width: 210px;
   opacity: 0.8;
 }
 
-.fixture-date {
+.fixture-date-team {
   font-weight: 600;
   padding-bottom: 4px;
   border-bottom: 1px solid #fff;
   margin: 0;
+  display: flex;
+}
+
+.fixture-date {
+  flex: 1;
 }
 
 .fixture-competition {
