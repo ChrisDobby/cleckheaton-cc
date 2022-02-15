@@ -7,3 +7,10 @@ export type Fixture = {
   venue: string;
   competition: { name: string };
 };
+
+export type Event = {
+  _id: string;
+  eventDate: string;
+  title: string;
+  subtitle: string;
+};

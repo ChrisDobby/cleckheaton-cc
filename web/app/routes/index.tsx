@@ -2,11 +2,16 @@ import { useLoaderData } from 'remix';
 import { getClient } from '~/sanity/getClient';
 import Header from '../components/header';
 import UpcomingFixtures from '../components/upcomingFixtures';
+import NewsAndEvents from '../components/newsAndEvents';
+import { Event, Fixture } from '~/types';
 
 import headerStyles from '../components/header.css';
 import upcomingFixtureStyles from '../components/upcomingFixtures.css';
+import newsAndEventsStyles from '../components/newsAndEvents.css';
 import indexStyles from '../styles/index.css';
-import { Fixture } from '~/types';
+
+const sortEvents = (e1: Event, e2: Event) =>
+  e1.eventDate < e2.eventDate ? -1 : 1;
 
 const sortFixtures = (f1: Fixture, f2: Fixture) => {
   if (f1.matchDate === f2.matchDate) {
@@ -17,23 +22,30 @@ const sortFixtures = (f1: Fixture, f2: Fixture) => {
 };
 
 export async function loader() {
-  const fixtures = (
-    await getClient().fetch(
+  const [fixtures, events] = (await Promise.all([
+    getClient().fetch(
       `*[_type == "fixture" && matchDate >= now()][0...4]{ _id, matchDate, opposition, team, venue, preview, competition->{name} }`
-    )
-  ).sort(sortFixtures);
+    ),
+    getClient().fetch(
+      `*[_type == "event" && eventDate >= now()][0...4]{ _id, eventDate, title, subtitle }`
+    ),
+  ])) as [Fixture[], Event[]];
 
-  return { fixtures };
+  return {
+    fixtures: fixtures.sort(sortFixtures),
+    events: events.sort(sortEvents),
+  };
 }
 
 export const links = () => [
   { rel: 'stylesheet', href: headerStyles },
   { rel: 'stylesheet', href: indexStyles },
   { rel: 'stylesheet', href: upcomingFixtureStyles },
+  { rel: 'stylesheet', href: newsAndEventsStyles },
 ];
 
 export default function Index() {
-  const { fixtures } = useLoaderData();
+  const { fixtures, events } = useLoaderData();
   console.log(fixtures);
   return (
     <div className='page'>
@@ -43,6 +55,7 @@ export default function Index() {
           <div className='scroll-container'>
             <main>
               <UpcomingFixtures fixtures={fixtures} />
+              <NewsAndEvents events={events} />
             </main>
           </div>
         </div>

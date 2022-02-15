@@ -56,7 +56,7 @@ export default {
     prepare: (selection) => {
       return {
         title: `${format(
-          new Date(selection.matchDate),
+          new Date(selection.eventDate),
           'dd-MMM-yyyy (HH:mm)'
         )} - ${selection.title}`,
         subtitle: selection.subtitle,
