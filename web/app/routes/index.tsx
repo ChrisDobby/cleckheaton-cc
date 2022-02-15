@@ -3,7 +3,7 @@ import { getClient } from '~/sanity/getClient';
 import Header from '../components/header';
 import UpcomingFixtures from '../components/upcomingFixtures';
 import NewsAndEvents from '../components/newsAndEvents';
-import { Event, Fixture } from '~/types';
+import { Event, Fixture, News } from '~/types';
 
 import headerStyles from '../components/header.css';
 import upcomingFixtureStyles from '../components/upcomingFixtures.css';
@@ -11,7 +11,8 @@ import newsAndEventsStyles from '../components/newsAndEvents.css';
 import indexStyles from '../styles/index.css';
 
 const sortEvents = (e1: Event, e2: Event) =>
-  e1.eventDate < e2.eventDate ? -1 : 1;
+  e1.eventDate < e2.eventDate ? 1 : -1;
+const sortNews = (n1: News, n2: News) => (n1.date < n2.date ? 1 : -1);
 
 const sortFixtures = (f1: Fixture, f2: Fixture) => {
   if (f1.matchDate === f2.matchDate) {
@@ -22,18 +23,22 @@ const sortFixtures = (f1: Fixture, f2: Fixture) => {
 };
 
 export async function loader() {
-  const [fixtures, events] = (await Promise.all([
+  const [fixtures, events, news] = (await Promise.all([
     getClient().fetch(
       `*[_type == "fixture" && matchDate >= now()][0...4]{ _id, matchDate, opposition, team, venue, preview, competition->{name} }`
     ),
     getClient().fetch(
       `*[_type == "event" && eventDate >= now()][0...4]{ _id, eventDate, title, subtitle }`
     ),
-  ])) as [Fixture[], Event[]];
+    getClient().fetch(
+      `*[_type == "news"][0...4]{ _id, date, title, subtitle, "imageUrl":image.asset->url }`
+    ),
+  ])) as [Fixture[], Event[], any[]];
 
   return {
     fixtures: fixtures.sort(sortFixtures),
     events: events.sort(sortEvents),
+    news: news.sort(sortNews),
   };
 }
 
@@ -45,8 +50,8 @@ export const links = () => [
 ];
 
 export default function Index() {
-  const { fixtures, events } = useLoaderData();
-  console.log(fixtures);
+  const { fixtures, events, news } = useLoaderData();
+  console.log(news);
   return (
     <div className='page'>
       <div className='main-wrapper'>
@@ -55,7 +60,7 @@ export default function Index() {
           <div className='scroll-container'>
             <main>
               <UpcomingFixtures fixtures={fixtures} />
-              <NewsAndEvents events={events} />
+              <NewsAndEvents events={events} news={news} />
             </main>
           </div>
         </div>

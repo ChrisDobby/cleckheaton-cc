@@ -1,13 +1,16 @@
-import { Event } from '../types';
+import { Event, News } from '../types';
 import Events from './events';
+import MobileNews from './mobileNews';
 
 type Props = {
   events: Event[];
+  news: News[];
 };
 
-const NewsAndEvents = ({ events }: Props) => (
+const NewsAndEvents = ({ events, news }: Props) => (
   <div className='news-events-grid'>
     <Events events={events} />
+    <MobileNews news={news} />
   </div>
 );
 

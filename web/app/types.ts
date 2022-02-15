@@ -14,3 +14,11 @@ export type Event = {
   title: string;
   subtitle: string;
 };
+
+export type News = {
+  _id: string;
+  date: string;
+  title: string;
+  subtitle: string;
+  imageUrl: string;
+};
