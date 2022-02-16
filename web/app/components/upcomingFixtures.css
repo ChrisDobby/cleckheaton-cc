@@ -4,6 +4,10 @@
   display: flex;
 }
 
+.fixtures-list {
+  display: none;
+}
+
 .fixtures-label {
   font-size: 0.875rem;
   color: #000;
@@ -53,6 +57,12 @@
   .fixtures-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .fixtures-list {
+    display: block;
+  }
+  .fixtures-swipeable {
+    display: none;
   }
   .fixture {
     min-width: auto;

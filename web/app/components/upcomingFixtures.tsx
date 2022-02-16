@@ -1,10 +1,12 @@
 import { format } from 'date-fns';
 import { Link } from 'remix';
+import SwipeableViews from 'react-swipeable-views';
 
 import { Fixture } from '../types';
 
 type Props = {
   fixtures: Fixture[];
+  swipeable?: boolean;
 };
 
 const Fixture = ({ fixture }: { fixture: Fixture }) => {
@@ -36,20 +38,28 @@ const Fixture = ({ fixture }: { fixture: Fixture }) => {
   );
 };
 
-const UpcomingFixtures = ({ fixtures }: Props) => {
+const UpcomingFixtures = ({ fixtures, swipeable }: Props) => {
   if (!fixtures.length) {
     return null;
   }
 
+  const fixturesList = fixtures.map((fixture) => (
+    <Fixture key={fixture._id} fixture={fixture} />
+  ));
+
+  const fixturesContainerContent = swipeable ? (
+    <SwipeableViews style={{ padding: '0 30px' }}>
+      {fixturesList}
+    </SwipeableViews>
+  ) : (
+    fixturesList
+  );
+
   return (
-    <>
+    <div className={`fixtures-${swipeable ? 'swipeable' : 'list'}`}>
       <p className='fixtures-label'>UPCOMING FIXTURES</p>
-      <div className='fixtures-container'>
-        {fixtures.map((fixture) => (
-          <Fixture key={fixture._id} fixture={fixture} />
-        ))}
-      </div>
-    </>
+      <div className='fixtures-container'>{fixturesContainerContent}</div>
+    </div>
   );
 };
 

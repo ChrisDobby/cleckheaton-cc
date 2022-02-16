@@ -61,6 +61,7 @@ export default function Index() {
           <div className='scroll-container'>
             <main>
               <UpcomingFixtures fixtures={fixtures} />
+              <UpcomingFixtures fixtures={fixtures} swipeable />
               <NewsAndEvents events={events} news={news} />
             </main>
           </div>
