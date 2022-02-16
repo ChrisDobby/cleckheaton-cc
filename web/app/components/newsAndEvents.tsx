@@ -1,6 +1,7 @@
 import { Event, News } from '../types';
 import Events from './events';
-import MobileNews from './mobileNews';
+import NewsCarousel from './newsCarousel';
+import NewsList from './newsList';
 
 type Props = {
   events: Event[];
@@ -10,7 +11,8 @@ type Props = {
 const NewsAndEvents = ({ events, news }: Props) => (
   <div className='news-events-grid'>
     <Events events={events} />
-    <MobileNews news={news} />
+    <NewsList news={news} />
+    <NewsCarousel news={news} />
   </div>
 );
 

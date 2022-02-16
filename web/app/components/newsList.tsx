@@ -3,7 +3,7 @@ import NewsItem from './newsItem';
 
 type Props = { news: News[] };
 
-const MobileNews = ({ news }: Props) => (
+const NewsList = ({ news }: Props) => (
   <div className='news-list'>
     {news.map((newsItem) => (
       <NewsItem key={newsItem._id} newsItem={newsItem} />
@@ -11,4 +11,4 @@ const MobileNews = ({ news }: Props) => (
   </div>
 );
 
-export default MobileNews;
+export default NewsList;

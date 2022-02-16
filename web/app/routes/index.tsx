@@ -9,6 +9,7 @@ import headerStyles from '../components/header.css';
 import upcomingFixtureStyles from '../components/upcomingFixtures.css';
 import newsAndEventsStyles from '../components/newsAndEvents.css';
 import indexStyles from '../styles/index.css';
+import carouselStyles from 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const sortEvents = (e1: Event, e2: Event) =>
   e1.eventDate < e2.eventDate ? 1 : -1;
@@ -47,11 +48,11 @@ export const links = () => [
   { rel: 'stylesheet', href: indexStyles },
   { rel: 'stylesheet', href: upcomingFixtureStyles },
   { rel: 'stylesheet', href: newsAndEventsStyles },
+  { rel: 'stylesheet', href: carouselStyles },
 ];
 
 export default function Index() {
   const { fixtures, events, news } = useLoaderData();
-  console.log(news);
   return (
     <div className='page'>
       <div className='main-wrapper'>
