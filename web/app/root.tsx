@@ -7,10 +7,18 @@ import {
   ScrollRestoration,
 } from 'remix';
 import type { MetaFunction } from 'remix';
+import Header from './components/header';
+import headerStyles from './components/header.css';
+import rootStyles from './styles/root.css';
 
 export const meta: MetaFunction = () => {
   return { title: 'Cleckheaton Cricket Club' };
 };
+
+export const links = () => [
+  { rel: 'stylesheet', href: headerStyles },
+  { rel: 'stylesheet', href: rootStyles },
+];
 
 export default function App() {
   return (
@@ -28,7 +36,19 @@ export default function App() {
             'Oscine, AxisSTD, "Helvetica Neue", helvetica, arial, sans-serif',
         }}
       >
-        <Outlet />
+        <div className='page'>
+          <div className='main-wrapper'>
+            <div className='main'>
+              <Header />
+              <div className='scroll-container'>
+                <main>
+                  <Outlet />
+                </main>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === 'development' && <LiveReload />}

@@ -1,14 +1,11 @@
 import { useLoaderData } from 'remix';
 import { getClient } from '~/sanity/getClient';
-import Header from '../components/header';
 import UpcomingFixtures from '../components/upcomingFixtures';
 import NewsAndEvents from '../components/newsAndEvents';
 import { Event, Fixture, News } from '~/types';
 
-import headerStyles from '../components/header.css';
 import upcomingFixtureStyles from '../components/upcomingFixtures.css';
 import newsAndEventsStyles from '../components/newsAndEvents.css';
-import indexStyles from '../styles/index.css';
 import carouselStyles from 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 const sortEvents = (e1: Event, e2: Event) =>
@@ -44,8 +41,6 @@ export async function loader() {
 }
 
 export const links = () => [
-  { rel: 'stylesheet', href: headerStyles },
-  { rel: 'stylesheet', href: indexStyles },
   { rel: 'stylesheet', href: upcomingFixtureStyles },
   { rel: 'stylesheet', href: newsAndEventsStyles },
   { rel: 'stylesheet', href: carouselStyles },
@@ -54,19 +49,10 @@ export const links = () => [
 export default function Index() {
   const { fixtures, events, news } = useLoaderData();
   return (
-    <div className='page'>
-      <div className='main-wrapper'>
-        <div className='main'>
-          <Header />
-          <div className='scroll-container'>
-            <main>
-              <UpcomingFixtures fixtures={fixtures} />
-              <UpcomingFixtures fixtures={fixtures} swipeable />
-              <NewsAndEvents events={events} news={news} />
-            </main>
-          </div>
-        </div>
-      </div>
-    </div>
+    <>
+      <UpcomingFixtures fixtures={fixtures} />
+      <UpcomingFixtures fixtures={fixtures} swipeable />
+      <NewsAndEvents events={events} news={news} />
+    </>
   );
 }
