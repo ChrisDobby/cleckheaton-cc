@@ -5,6 +5,7 @@ export type Fixture = {
   preview?: string;
   team: string;
   venue: string;
+  result?: string;
   competition: { name: string };
 };
 
