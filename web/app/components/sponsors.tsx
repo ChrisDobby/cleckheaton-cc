@@ -13,6 +13,7 @@ const SponsorsCarousel = ({ sponsors }: Props) => (
     showIndicators={false}
     stopOnHover={false}
     interval={5000}
+    swipeable={false}
   >
     {sponsors.map((sponsor) => (
       <SponsorItem key={sponsor._id} sponsor={sponsor} />

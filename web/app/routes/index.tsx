@@ -4,7 +4,7 @@ import UpcomingFixtures from '../components/upcomingFixtures';
 import NewsAndEvents from '../components/newsAndEvents';
 import Sponsors from '~/components/sponsors';
 import { Event, Fixture, News, Sponsor } from '~/types';
-import { sortEvents, sortFixtures, sortNews, sortSponsors } from '~/sort';
+import { sortFixtures, sortSponsors } from '~/sort';
 
 import upcomingFixtureStyles from '../components/upcomingFixtures.css';
 import newsAndEventsStyles from '../components/newsAndEvents.css';
@@ -17,10 +17,10 @@ export async function loader() {
       `*[_type == "fixture" && matchDate >= now()] | order(matchDate asc)[0...4]{ _id, matchDate, opposition, team, venue, preview, competition->{name} }`
     ),
     getClient().fetch(
-      `*[_type == "event" && eventDate >= now()][0...4]{ _id, eventDate, title, subtitle }`
+      `*[_type == "event" && eventDate >= now()] | order(eventDate asc) [0...4]{ _id, eventDate, title, subtitle }`
     ),
     getClient().fetch(
-      `*[_type == "news"][0...4]{ _id, date, title, subtitle, "imageUrl":image.asset->url }`
+      `*[_type == "news"] | order(date desc) [0...4]{ _id, date, title, subtitle, "imageUrl":image.asset->url }`
     ),
     getClient().fetch(
       `*[_type == "sponsor"]{ _id, title, url, position, "imageUrl":image.asset->url }`
@@ -28,9 +28,9 @@ export async function loader() {
   ])) as [Fixture[], Event[], News[], Sponsor[]];
 
   return {
-    fixtures,
-    events: events.sort(sortEvents),
-    news: news.sort(sortNews),
+    fixtures: fixtures.sort(sortFixtures),
+    events,
+    news,
     sponsors: sponsors.sort(sortSponsors),
   };
 }

@@ -4,7 +4,7 @@ import EventLine from './eventLine';
 type Props = { events: Event[] };
 
 const Events = ({ events }: Props) => (
-  <article className='events-list'>
+  <article className={`events-list ${events.length === 0 ? 'empty' : ''}`}>
     <h4 className='events-header'>CLUB EVENTS</h4>
     <div className='event-grid'>
       {events.map((event) => (

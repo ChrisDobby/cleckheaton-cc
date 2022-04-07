@@ -12,6 +12,10 @@
   color: #fff;
 }
 
+.events-list.empty {
+  display: none;
+}
+
 .events-header {
   margin: 0;
   font-weight: 600;
@@ -95,6 +99,10 @@
 
   .events-list {
     grid-column: 2;
+  }
+
+  .events-list.empty {
+    display: inherit;
   }
 
   .news-list {
