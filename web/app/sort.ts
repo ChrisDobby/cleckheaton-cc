@@ -1,4 +1,4 @@
-import { Event, Fixture, News } from './types';
+import { Event, Fixture, News, Sponsor } from './types';
 
 export const sortEvents = (e1: Event, e2: Event) =>
   e1.eventDate < e2.eventDate ? 1 : -1;
@@ -11,3 +11,6 @@ export const sortFixtures = (f1: Fixture, f2: Fixture) => {
 
   return f1.matchDate < f2.matchDate ? -1 : 1;
 };
+
+export const sortSponsors = (s1: Sponsor, s2: Sponsor) =>
+  (s1.position || 9999) - (s2.position || 9999);

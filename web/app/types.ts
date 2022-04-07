@@ -23,3 +23,11 @@ export type News = {
   subtitle: string;
   imageUrl: string;
 };
+
+export type Sponsor = {
+  _id: string;
+  title: string;
+  imageUrl: string;
+  url: string;
+  position: number;
+};

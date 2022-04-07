@@ -5,7 +5,7 @@ import NewsItem from './newsItem';
 type Props = { news: News[] };
 
 const NewsCarousel = ({ news }: Props) => (
-  <Carousel className='news-carousel' showStatus={false} autoPlay infiniteLoop>
+  <Carousel className='news-carousel' showStatus={false}>
     {news.map((newsItem) => (
       <NewsItem key={newsItem._id} newsItem={newsItem} />
     ))}

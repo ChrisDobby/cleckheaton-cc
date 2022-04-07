@@ -1,0 +1,27 @@
+.sponsors-label {
+  font-size: 0.875rem;
+  color: #000;
+  font-weight: 600;
+}
+
+.sponsors-carousel {
+  padding: 8px;
+  margin-right: 16px;
+}
+
+.sponsor-item {
+  height: 10rem;
+  display: flex;
+  align-items: center;
+  text-align: center;
+}
+
+.sponsor-item img {
+  display: block;
+  max-height: 10rem;
+}
+
+.sponsor-item a {
+  margin-left: auto;
+  margin-right: auto;
+}
