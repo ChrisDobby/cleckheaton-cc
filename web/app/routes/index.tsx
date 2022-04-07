@@ -14,7 +14,7 @@ import carouselStyles from 'react-responsive-carousel/lib/styles/carousel.min.cs
 export async function loader() {
   const [fixtures, events, news, sponsors] = (await Promise.all([
     getClient().fetch(
-      `*[_type == "fixture" && matchDate >= now()][0...4]{ _id, matchDate, opposition, team, venue, preview, competition->{name} }`
+      `*[_type == "fixture" && matchDate >= now()] | order(matchDate asc)[0...4]{ _id, matchDate, opposition, team, venue, preview, competition->{name} }`
     ),
     getClient().fetch(
       `*[_type == "event" && eventDate >= now()][0...4]{ _id, eventDate, title, subtitle }`
@@ -28,7 +28,7 @@ export async function loader() {
   ])) as [Fixture[], Event[], News[], Sponsor[]];
 
   return {
-    fixtures: fixtures.sort(sortFixtures),
+    fixtures,
     events: events.sort(sortEvents),
     news: news.sort(sortNews),
     sponsors: sponsors.sort(sortSponsors),

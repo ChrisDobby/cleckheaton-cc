@@ -6,7 +6,7 @@ import fixtureListStyles from '~/components/fixtureList.css';
 
 export async function loader() {
   const fixtures = await getClient().fetch(
-    `*[_type == "fixture"][0...4]{ _id, matchDate, opposition, team, venue, preview, result, competition->{name} }`
+    `*[_type == "fixture"]{ _id, matchDate, opposition, team, venue, preview, result, competition->{name} }`
   );
 
   return {
