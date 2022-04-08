@@ -22,6 +22,7 @@ export type News = {
   title: string;
   subtitle: string;
   imageUrl: string;
+  description: any;
 };
 
 export type Sponsor = {
