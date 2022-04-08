@@ -7,8 +7,8 @@ export default {
   fields: [
     {
       name: 'eventDate',
-      title: 'Event Date & Time',
-      type: 'datetime',
+      title: 'Event Date',
+      type: 'date',
       validation: (Rule) => Rule.required(),
       options: {
         dateFormat: 'DD-MMMM-YYYY',
@@ -29,7 +29,7 @@ export default {
       name: 'description',
       title: 'Description',
       type: 'blockContent',
-      validation: (Rule) => Rule.required(),
+      // validation: (Rule) => Rule.required(),
     },
     {
       name: 'image',

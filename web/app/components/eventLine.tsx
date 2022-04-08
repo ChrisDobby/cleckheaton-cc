@@ -11,7 +11,6 @@ const EventLine = ({ event }: Props) => {
     <>
       <div className='event-date'>
         <h5>{format(eventDate, 'dd-MMM')}</h5>
-        <h5>{format(eventDate, 'HH:mm')}</h5>
       </div>
       <div className='event-info'>
         <h5 className='event-title'>{event.title}</h5>
