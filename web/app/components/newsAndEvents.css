@@ -64,6 +64,8 @@
   margin-right: 16px;
   color: #fff;
   text-align: center;
+  text-decoration: inherit;
+  display: block;
 }
 
 .news-title {
@@ -107,6 +109,16 @@
 
   .news-list {
     display: none;
+  }
+
+  .news-list.always-visible {
+    display: flex;
+  }
+
+  .news-list.always-visible .news-item {
+    width: 40rem;
+    margin-right: auto;
+    margin-left: auto;
   }
 
   .news-carousel {

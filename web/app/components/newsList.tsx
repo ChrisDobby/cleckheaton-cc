@@ -1,10 +1,10 @@
 import { News } from '../types';
 import NewsItem from './newsItem';
 
-type Props = { news: News[] };
+type Props = { news: News[]; alwaysVisible?: boolean };
 
-const NewsList = ({ news }: Props) => (
-  <div className='news-list'>
+const NewsList = ({ news, alwaysVisible }: Props) => (
+  <div className={`news-list ${alwaysVisible ? 'always-visible' : ''}`}>
     {news.map((newsItem) => (
       <NewsItem key={newsItem._id} newsItem={newsItem} />
     ))}
