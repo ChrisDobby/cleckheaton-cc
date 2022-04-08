@@ -20,7 +20,7 @@ export async function loader() {
       `*[_type == "event" && eventDate >= now()] | order(eventDate asc) [0...4]{ _id, eventDate, title, subtitle }`
     ),
     getClient().fetch(
-      `*[_type == "news"] | order(date desc) [0...4]{ _id, date, title, subtitle, "imageUrl":image.asset->url }`
+      `*[_type == "news" && showOnHomepage == true] | order(date desc){ _id, date, title, subtitle, "imageUrl":image.asset->url }`
     ),
     getClient().fetch(
       `*[_type == "sponsor"]{ _id, title, url, position, "imageUrl":image.asset->url }`
