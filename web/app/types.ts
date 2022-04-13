@@ -6,6 +6,7 @@ export type Fixture = {
   team: string;
   venue: string;
   result?: string;
+  report?: string;
   competition: { name: string };
 };
 
@@ -31,4 +32,12 @@ export type Sponsor = {
   imageUrl: string;
   url: string;
   position: number;
+};
+
+export type MatchResult = {
+  _id: string;
+  date: string;
+  description: string;
+  result: string;
+  report?: string;
 };
