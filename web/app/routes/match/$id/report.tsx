@@ -1,10 +1,18 @@
-import { useLoaderData } from 'remix';
+import { useLoaderData, MetaFunction } from 'remix';
 import { getClient } from '~/sanity/getClient';
 import { MatchResult } from '~/types';
 import Article from '~/components/article';
 import { transformLatestResult } from '~/transform';
 
 import articletStyles from '~/components/article.css';
+
+export const meta: MetaFunction = ({ data }) => {
+  const { description } = data;
+  return {
+    title: description,
+    description: 'Cleckheaton CC match report>',
+  };
+};
 
 export async function loader({ params }: { params: { id: string } }) {
   const { id } = params;

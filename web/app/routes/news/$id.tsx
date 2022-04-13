@@ -1,9 +1,17 @@
-import { useLoaderData } from 'remix';
+import { useLoaderData, MetaFunction } from 'remix';
 import { getClient } from '~/sanity/getClient';
 import { News } from '~/types';
 import Article from '~/components/article';
 
 import articleStyles from '~/components/article.css';
+
+export const meta: MetaFunction = ({ data }) => {
+  const { title, subTitle } = data;
+  return {
+    title,
+    description: subTitle,
+  };
+};
 
 export async function loader({ params }: { params: { id: string } }) {
   const { id } = params;

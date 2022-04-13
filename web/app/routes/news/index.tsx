@@ -1,8 +1,12 @@
-import { useLoaderData } from 'remix';
+import { useLoaderData, MetaFunction } from 'remix';
 import { getClient } from '~/sanity/getClient';
 import NewsList from '~/components/newsList';
 import { News } from '~/types';
 import newsStyles from '~/components/newsAndEvents.css';
+
+export const meta: MetaFunction = () => ({
+  title: 'Cleckheaton Cricket Club News',
+});
 
 export async function loader() {
   const news = await getClient().fetch(
