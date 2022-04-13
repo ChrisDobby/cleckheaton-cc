@@ -1,8 +1,8 @@
 import { useLoaderData } from 'remix';
 import { getClient } from '~/sanity/getClient';
-import { MatchResult } from '~/types';
+import { MatchPreview } from '~/types';
 import Article from '~/components/article';
-import { transformLatestResult } from '~/transform';
+import { transformPreview } from '~/transform';
 
 import articletStyles from '~/components/article.css';
 
@@ -12,22 +12,22 @@ export async function loader({ params }: { params: { id: string } }) {
     `*[_type == "fixture" && _id == "${id}"]{ _id, matchDate, opposition, team, venue, result, report }`
   );
 
-  if (!fixture || !fixture.report) {
+  if (!fixture || !fixture.preview) {
     throw new Response('Not Found', { status: 404 });
   }
 
-  return { result: transformLatestResult(fixture) };
+  return { preview: transformPreview(fixture) };
 }
 
 export const links = () => [{ rel: 'stylesheet', href: articletStyles }];
 
 export default function Index() {
-  const { result } = useLoaderData() as { result: MatchResult };
+  const { preview } = useLoaderData() as { preview: MatchPreview };
   return (
     <Article
-      title={`${result.date}: ${result.description}`}
-      subtitle={result.result}
-      text={result.report}
+      title={preview.description}
+      subtitle={preview.date}
+      text={preview.preview}
     />
   );
 }

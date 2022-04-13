@@ -32,7 +32,9 @@ const Fixture = ({ fixture }: { fixture: Fixture }) => {
         {awayTeam}
       </p>
       <div className='fixture-preview-link'>
-        {fixture.preview && <Link to={`/preview/${fixture._id}`}>Preview</Link>}
+        {fixture.preview && (
+          <Link to={`/match/${fixture._id}/preview`}>Preview</Link>
+        )}
       </div>
     </article>
   );
