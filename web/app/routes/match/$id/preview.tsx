@@ -17,7 +17,7 @@ export const meta: MetaFunction = ({ data }) => {
 export async function loader({ params }: { params: { id: string } }) {
   const { id } = params;
   const [fixture] = await getClient().fetch(
-    `*[_type == "fixture" && _id == "${id}"]{ _id, matchDate, opposition, team, venue, result, report }`
+    `*[_type == "fixture" && _id == "${id}"]{ _id, matchDate, opposition, team, venue, result, preview }`
   );
 
   if (!fixture || !fixture.preview) {
