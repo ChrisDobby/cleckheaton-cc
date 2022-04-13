@@ -39,5 +39,5 @@ export type MatchResult = {
   date: string;
   description: string;
   result: string;
-  report?: string;
+  report?: any;
 };

@@ -29,7 +29,7 @@ export async function loader() {
       `*[_type == "sponsor"]{ _id, title, url, position, "imageUrl":image.asset->url }`
     ),
     getClient().fetch(
-      `*[_type == "fixture" && matchDate < now() && result != ""] | order(matchDate desc)[0...4]{ _id, matchDate, opposition, team, venue, result, report, competition->{name} }`
+      `*[_type == "fixture" && matchDate < now() && result != ""] | order(matchDate desc)[0...4]{ _id, matchDate, opposition, team, venue, result, report }`
     ),
   ])) as [Fixture[], Event[], News[], Sponsor[], Fixture[]];
 

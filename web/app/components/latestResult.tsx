@@ -9,7 +9,9 @@ const LatestResult = ({ result }: Props) => (
     <div className='latest-result-description'>
       <p className='latest-result-fixture'>{result.description}</p>
       <p className='latest-result-result'>{result.result}</p>
-      {result.report && <Link to={`/match/${result._id}/report`} />}
+      {result.report && (
+        <Link to={`/match/${result._id}/report`}>Match report</Link>
+      )}
     </div>
   </div>
 );
