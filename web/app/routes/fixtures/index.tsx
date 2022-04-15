@@ -11,7 +11,7 @@ export const meta: MetaFunction = () => ({
 
 export async function loader() {
   const fixtures = await getClient().fetch(
-    `*[_type == "fixture"]{ _id, matchDate, opposition, team, venue, preview, result, competition->{name} }`
+    `*[_type == "fixture"]{ _id, matchDate, opposition, team, venue, preview, result, report, scorecard, competition->{name} }`
   );
 
   return {

@@ -17,7 +17,7 @@ export const meta: MetaFunction = ({ data }) => {
 export async function loader({ params }: { params: { id: string } }) {
   const { id } = params;
   const [fixture] = await getClient().fetch(
-    `*[_type == "fixture" && _id == "${id}"]{ _id, matchDate, opposition, team, venue, result, report }`
+    `*[_type == "fixture" && _id == "${id}"]{ _id, matchDate, opposition, team, venue, result, report, scorecard }`
   );
 
   if (!fixture || !fixture.report) {
@@ -32,10 +32,17 @@ export const links = () => [{ rel: 'stylesheet', href: articletStyles }];
 export default function Index() {
   const { result } = useLoaderData() as { result: MatchResult };
   return (
-    <Article
-      title={`${result.date}: ${result.description}`}
-      subtitle={result.result}
-      text={result.report}
-    />
+    <>
+      <Article
+        title={`${result.date}: ${result.description}`}
+        subtitle={result.result}
+        text={result.report}
+      />
+      {result.scorecard && (
+        <a style={{ color: '#fff' }} href={result.scorecard} target='_blank'>
+          Scorecard
+        </a>
+      )}
+    </>
   );
 }

@@ -18,6 +18,7 @@ export const transformLatestResult = (fixture: Fixture): MatchResult => ({
   ...getFixtureFields(fixture),
   result: fixture.result as string,
   report: fixture.report,
+  scorecard: fixture.scorecard,
 });
 
 export const transformPreview = (fixture: Fixture): MatchPreview => ({

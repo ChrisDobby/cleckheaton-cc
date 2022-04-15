@@ -7,6 +7,7 @@ export type Fixture = {
   venue: string;
   result?: string;
   report?: any;
+  scorecard?: string;
   competition: { name: string };
 };
 
@@ -39,6 +40,7 @@ export type MatchResult = {
   date: string;
   description: string;
   result: string;
+  scorecard?: string;
   report?: any;
 };
 

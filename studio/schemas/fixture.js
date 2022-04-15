@@ -56,6 +56,11 @@ export default {
       title: 'Report',
       type: 'blockContent',
     },
+    {
+      name: 'scorecard',
+      title: 'Scorecard',
+      type: 'url',
+    },
   ],
   orderings: [
     {

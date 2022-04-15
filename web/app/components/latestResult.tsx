@@ -20,6 +20,15 @@ const LatestResult = ({ result }: Props) => (
           Match report
         </Link>
       )}
+      {result.scorecard && (
+        <a
+          className='latest-result-scorecard'
+          href={result.scorecard}
+          target='_blank'
+        >
+          Scorecard
+        </a>
+      )}
     </div>
   </>
 );
