@@ -13,13 +13,14 @@
   opacity: 0.8;
 }
 
-.latest-result-grid {
+.latest-results-grid {
   display: grid;
   grid-template-columns: auto 1fr;
   column-gap: 1rem;
 }
 
 .latest-result-date {
+  margin-top: 0.75rem;
   grid-column: 1;
   font-size: 0.875rem;
   display: flex;
@@ -27,6 +28,7 @@
 }
 
 .latest-result-description {
+  margin-top: 0.75rem;
   grid-column: 2;
 }
 
@@ -40,8 +42,26 @@
   font-style: italic;
 }
 
+.latest-result-report a {
+  color: #fff;
+}
+
 @media screen and (min-width: 768px) {
   .latest-results-section {
     min-width: auto;
+  }
+
+  .latest-result-description {
+    display: flex;
+  }
+
+  .latest-result-description .latest-result-fixture,
+  .latest-result-description .latest-result-result {
+    display: none;
+  }
+  .latest-result-description .latest-result-single-line {
+    display: block;
+    flex: 1;
+    margin: 0;
   }
 }

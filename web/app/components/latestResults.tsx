@@ -12,9 +12,11 @@ const LatestResults = ({ results }: Props) => {
     <>
       <p className='latest-results-label'>LATEST RESULTS</p>
       <section className='latest-results-section'>
-        {results.map((result) => (
-          <LatestResult key={result._id} result={result} />
-        ))}
+        <div className='latest-results-grid'>
+          {results.map((result) => (
+            <LatestResult key={result._id} result={result} />
+          ))}
+        </div>
       </section>
     </>
   );
