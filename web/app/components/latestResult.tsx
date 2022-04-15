@@ -12,14 +12,6 @@ const LatestResult = ({ result }: Props) => (
       <p className='latest-result-single-line'>
         <strong>{result.description}</strong>: {result.result}
       </p>
-      {result.report && (
-        <Link
-          className='latest-result-report'
-          to={`/match/${result._id}/report`}
-        >
-          Match report
-        </Link>
-      )}
       {result.scorecard && (
         <a
           className='latest-result-scorecard'
@@ -28,6 +20,14 @@ const LatestResult = ({ result }: Props) => (
         >
           Scorecard
         </a>
+      )}
+      {result.report && (
+        <Link
+          className='latest-result-report'
+          to={`/match/${result._id}/report`}
+        >
+          Match report
+        </Link>
       )}
     </div>
   </>
