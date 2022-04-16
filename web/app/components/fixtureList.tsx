@@ -14,7 +14,7 @@ const Fixture = ({ fixture }: FixtureProps) => (
       <p className='fixture-competition'>{fixture.competition.name}</p>
     </div>
     {fixture.preview && (
-      <Link className='fixture-preview' to={`/match/${fixture._id}/preview`}>
+      <Link className='fixture-preview' to={`/fixtures/${fixture._id}/preview`}>
         Preview
       </Link>
     )}
@@ -25,7 +25,7 @@ const Fixture = ({ fixture }: FixtureProps) => (
       </a>
     )}
     {fixture.report && (
-      <Link className='fixture-report' to={`/match/${fixture._id}/report`}>
+      <Link className='fixture-report' to={`/fixtures/${fixture._id}/report`}>
         Match report
       </Link>
     )}

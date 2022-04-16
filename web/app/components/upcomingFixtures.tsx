@@ -33,7 +33,7 @@ const Fixture = ({ fixture }: { fixture: Fixture }) => {
       </p>
       <div className='fixture-preview-link'>
         {fixture.preview && (
-          <Link to={`/match/${fixture._id}/preview`}>Preview</Link>
+          <Link to={`/fixtures/${fixture._id}/preview`}>Preview</Link>
         )}
       </div>
     </article>

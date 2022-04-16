@@ -24,7 +24,7 @@ const LatestResult = ({ result }: Props) => (
       {result.report && (
         <Link
           className='latest-result-report'
-          to={`/match/${result._id}/report`}
+          to={`/fixtures/${result._id}/report`}
         >
           Match report
         </Link>
