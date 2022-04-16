@@ -5,6 +5,7 @@ import Article from '~/components/article';
 import { transformLatestResult } from '~/transform';
 
 import articletStyles from '~/components/article.css';
+import { idCatchBoundary } from '~/catchBoundary';
 
 export const meta: MetaFunction = ({ data }) => {
   const { description } = data;
@@ -26,6 +27,8 @@ export async function loader({ params }: { params: { id: string } }) {
 
   return { result: transformLatestResult(fixture) };
 }
+
+export const CatchBoundary = idCatchBoundary('match report');
 
 export const links = () => [{ rel: 'stylesheet', href: articletStyles }];
 
