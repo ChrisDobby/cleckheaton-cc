@@ -11,7 +11,7 @@ export const meta: MetaFunction = ({ data }) => {
   const { description } = data;
   return {
     title: description,
-    description: 'Cleckheaton CC match report>',
+    description: 'Cleckheaton CC match report',
   };
 };
 
