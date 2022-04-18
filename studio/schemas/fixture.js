@@ -61,6 +61,16 @@ export default {
       title: 'Scorecard',
       type: 'url',
     },
+    {
+      name: 'matchballSponsor',
+      title: 'Matchball Sponsor',
+      type: 'string',
+    },
+    {
+      name: 'matchballSponsorUrl',
+      title: 'Matchball Sponsor Url',
+      type: 'url',
+    },
   ],
   orderings: [
     {
