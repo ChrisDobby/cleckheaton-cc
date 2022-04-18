@@ -12,12 +12,13 @@ import upcomingFixtureStyles from '../components/upcomingFixtures.css';
 import newsAndEventsStyles from '../components/newsAndEvents.css';
 import sponsorsStyles from '../components/sponsors.css';
 import latestResultsStyles from '../components/latestResults.css';
+import matchballSponsorStyles from '../components/matchballSponsor.css';
 import carouselStyles from 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 export async function loader() {
   const [fixtures, events, news, sponsors, latestResults] = (await Promise.all([
     getClient().fetch(
-      `*[_type == "fixture" && matchDate >= now()] | order(matchDate asc)[0...4]{ _id, matchDate, opposition, team, venue, preview, competition->{name} }`
+      `*[_type == "fixture" && matchDate >= now()] | order(matchDate asc)[0...4]{ _id, matchDate, opposition, team, venue, preview, matchballSponsor, matchballSponsorUrl, competition->{name} }`
     ),
     getClient().fetch(
       `*[_type == "event" && eventDate >= now()] | order(eventDate asc) [0...4]{ _id, eventDate, title, subtitle }`
@@ -47,6 +48,7 @@ export const links = () => [
   { rel: 'stylesheet', href: newsAndEventsStyles },
   { rel: 'stylesheet', href: sponsorsStyles },
   { rel: 'stylesheet', href: latestResultsStyles },
+  { rel: 'stylesheet', href: matchballSponsorStyles },
   { rel: 'stylesheet', href: carouselStyles },
 ];
 

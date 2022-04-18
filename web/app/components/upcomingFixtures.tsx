@@ -3,6 +3,7 @@ import { Link } from 'remix';
 import SwipeableViews from 'react-swipeable-views';
 
 import { Fixture } from '../types';
+import MatchballSponsor from './matchBallSponsor';
 
 type Props = {
   fixtures: Fixture[];
@@ -31,6 +32,7 @@ const Fixture = ({ fixture }: { fixture: Fixture }) => {
         <br />
         {awayTeam}
       </p>
+      <MatchballSponsor {...fixture} />
       <div className='fixture-preview-link'>
         {fixture.preview && (
           <Link to={`/fixtures/${fixture._id}/preview`}>Preview</Link>

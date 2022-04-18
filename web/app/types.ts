@@ -8,6 +8,8 @@ export type Fixture = {
   result?: string;
   report?: any;
   scorecard?: string;
+  matchballSponsor?: string;
+  matchballSponsorUrl?: string;
   competition: { name: string };
 };
 
