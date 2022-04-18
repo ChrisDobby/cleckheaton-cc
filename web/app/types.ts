@@ -51,3 +51,9 @@ export type MatchPreview = {
   description: string;
   preview: any;
 };
+
+export type MatchDay = {
+  todaysFixtures: Fixture[];
+  tomorrowsFixtures: Fixture[];
+  yesterdaysFixtures: Fixture[];
+};

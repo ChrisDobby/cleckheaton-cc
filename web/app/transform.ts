@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
-import { Fixture, MatchPreview, MatchResult } from './types';
+import { isAfter, isBefore, isSameDay } from 'date-fns';
+import { Fixture, MatchDay, MatchPreview, MatchResult } from './types';
 
 const getFixtureFields = (fixture: Fixture) => {
   const descriptionPrefix =
@@ -25,3 +26,37 @@ export const transformPreview = (fixture: Fixture): MatchPreview => ({
   ...getFixtureFields(fixture),
   preview: fixture.preview,
 });
+
+export const transformMatchDay = (fixtures: Fixture[], today: Date): MatchDay =>
+  fixtures.reduce(
+    (matchDay, fixture) => {
+      const matchDate = new Date(fixture.matchDate);
+      switch (true) {
+        case isSameDay(today, matchDate):
+          return {
+            ...matchDay,
+            todaysFixtures: [...(matchDay.todaysFixtures || []), fixture],
+          };
+        case isBefore(today, matchDate):
+          return {
+            ...matchDay,
+            yesterdaysFixtures: [
+              ...(matchDay.yesterdaysFixtures || []),
+              fixture,
+            ],
+          };
+        case isAfter(today, matchDate):
+          return {
+            ...matchDay,
+            tomorrowsFixtures: [...(matchDay.tomorrowsFixtures || []), fixture],
+          };
+      }
+
+      return matchDay;
+    },
+    {
+      todaysFixtures: [] as Fixture[],
+      tomorrowsFixtures: [] as Fixture[],
+      yesterdaysFixtures: [] as Fixture[],
+    }
+  );

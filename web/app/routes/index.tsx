@@ -1,4 +1,4 @@
-import { useLoaderData } from 'remix';
+import { useLoaderData, redirect } from 'remix';
 import { getClient } from '~/sanity/getClient';
 import UpcomingFixtures from '../components/upcomingFixtures';
 import NewsAndEvents from '../components/newsAndEvents';
@@ -7,6 +7,7 @@ import LatestResults from '~/components/latestResults';
 import { Event, Fixture, News, Sponsor } from '~/types';
 import { sortFixtures, sortSponsors } from '~/sort';
 import { transformLatestResult } from '~/transform';
+import { isMatchDay } from '~/matchDays';
 
 import upcomingFixtureStyles from '../components/upcomingFixtures.css';
 import newsAndEventsStyles from '../components/newsAndEvents.css';
@@ -16,6 +17,10 @@ import matchballSponsorStyles from '../components/matchballSponsor.css';
 import carouselStyles from 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 export async function loader() {
+  if (isMatchDay(new Date())) {
+    return redirect('/match-centre');
+  }
+
   const [fixtures, events, news, sponsors, latestResults] = (await Promise.all([
     getClient().fetch(
       `*[_type == "fixture" && matchDate >= now()] | order(matchDate asc)[0...4]{ _id, matchDate, opposition, team, venue, preview, matchballSponsor, matchballSponsorUrl, competition->{name} }`
