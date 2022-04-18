@@ -3,6 +3,7 @@ import { getClient } from '~/sanity/getClient';
 import FixtureList from '~/components/fixtureList';
 import { Fixture } from '~/types';
 import fixtureListStyles from '~/components/fixtureList.css';
+import matchBallSponsorStyles from '~/components/matchBallSponsor';
 
 export const meta: MetaFunction = () => ({
   title: 'Fixtures',
@@ -11,7 +12,7 @@ export const meta: MetaFunction = () => ({
 
 export async function loader() {
   const fixtures = await getClient().fetch(
-    `*[_type == "fixture"]{ _id, matchDate, opposition, team, venue, preview, result, report, scorecard, competition->{name} }`
+    `*[_type == "fixture"]{ _id, matchDate, opposition, team, venue, preview, result, report, scorecard, matchballSponsor, matchballSponsorUrl, competition->{name} }`
   );
 
   return {
@@ -19,7 +20,10 @@ export async function loader() {
   };
 }
 
-export const links = () => [{ rel: 'stylesheet', href: fixtureListStyles }];
+export const links = () => [
+  { rel: 'stylesheet', href: fixtureListStyles },
+  { rel: 'stylesheet', href: matchBallSponsorStyles },
+];
 
 export default function Index() {
   const { fixtures } = useLoaderData() as { fixtures: Fixture[] };

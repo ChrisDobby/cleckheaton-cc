@@ -2,6 +2,7 @@ import { Link } from 'remix';
 import { format } from 'date-fns';
 import { sortFixtures } from '~/sort';
 import { Fixture } from '~/types';
+import MatchballSponsor from './matchBallSponsor';
 
 type FixtureProps = { fixture: Fixture };
 const Fixture = ({ fixture }: FixtureProps) => (
@@ -13,6 +14,7 @@ const Fixture = ({ fixture }: FixtureProps) => (
       <p className='fixture-opposition'>{`${fixture.opposition} (${fixture.venue})`}</p>
       <p className='fixture-competition'>{fixture.competition.name}</p>
     </div>
+    <MatchballSponsor {...fixture} />
     {fixture.preview && (
       <Link className='fixture-preview' to={`/fixtures/${fixture._id}/preview`}>
         Preview
