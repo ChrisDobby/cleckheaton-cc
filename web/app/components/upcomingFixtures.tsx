@@ -4,43 +4,29 @@ import SwipeableViews from 'react-swipeable-views';
 
 import { Fixture } from '../types';
 import MatchballSponsor from './matchBallSponsor';
+import FixtureDescription from './fixtureDescription';
 
 type Props = {
   fixtures: Fixture[];
   swipeable?: boolean;
 };
 
-const Fixture = ({ fixture }: { fixture: Fixture }) => {
-  const homeTeam =
-    fixture.venue === 'Home' ? 'Cleckheaton' : fixture.opposition;
-  const awayTeam =
-    fixture.venue === 'Home' ? fixture.opposition : 'Cleckheaton';
-
-  return (
-    <article className='fixture'>
-      <h4 className='fixture-date-team'>
-        <span className='fixture-date'>
-          {format(new Date(fixture.matchDate), 'dd-MMM (HH:mm)')}
-        </span>
-        <span>{`${fixture.team} team`}</span>
-      </h4>
-      <h5 className='fixture-competition'>{fixture.competition.name}</h5>
-      <p className='fixture-description'>
-        {homeTeam}
-        <br />
-        vs
-        <br />
-        {awayTeam}
-      </p>
-      <MatchballSponsor {...fixture} />
-      <div className='fixture-preview-link'>
-        {fixture.preview && (
-          <Link to={`/fixtures/${fixture._id}/preview`}>Preview</Link>
-        )}
-      </div>
-    </article>
-  );
-};
+const Fixture = ({ fixture }: { fixture: Fixture }) => (
+  <article className='fixture'>
+    <h4 className='fixture-date-team'>
+      <span className='fixture-date'>
+        {format(new Date(fixture.matchDate), 'dd-MMM (HH:mm)')}
+      </span>
+      <span>{`${fixture.team} team`}</span>
+    </h4>
+    <h5 className='fixture-competition'>{fixture.competition.name}</h5>
+    <FixtureDescription fixture={fixture} />
+    <MatchballSponsor {...fixture} />
+    <div className='fixture-preview-link'>
+      {fixture.preview && <Link to={`/preview/${fixture._id}`}>Preview</Link>}
+    </div>
+  </article>
+);
 
 const UpcomingFixtures = ({ fixtures, swipeable }: Props) => {
   if (!fixtures.length) {
