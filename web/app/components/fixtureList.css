@@ -49,12 +49,20 @@
   font-size: 0.875rem;
   grid-column-start: 1;
   grid-column-end: 3;
-  text-align: center;
   font-size: 600;
 }
 
-.fixture-scorecard {
+.fixture-links {
+  display: flex;
+  column-gap: 1rem;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  justify-content: flex-end;
+}
+
+.fixture-scorecard, .fixture-report {
   color: #fff;
+  font-weight: 700;
 }
 
 .fixture-list-grid {
