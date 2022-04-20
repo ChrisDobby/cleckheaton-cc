@@ -4,7 +4,6 @@ import { News } from '~/types';
 import Article from '~/components/article';
 
 import articleStyles from '~/components/article.css';
-import { idCatchBoundary } from '~/catchBoundary';
 
 export const meta: MetaFunction = ({ data }) => {
   const { title, subTitle } = data;
@@ -28,8 +27,6 @@ export async function loader({ params }: { params: { id: string } }) {
 }
 
 export const links = () => [{ rel: 'stylesheet', href: articleStyles }];
-
-export const CatchBoundary = idCatchBoundary('news item');
 
 export default function Index() {
   const { newsItem } = useLoaderData() as { newsItem: News };

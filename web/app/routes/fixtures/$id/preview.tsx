@@ -5,7 +5,6 @@ import Article from '~/components/article';
 import { transformPreview } from '~/transform';
 
 import articletStyles from '~/components/article.css';
-import { idCatchBoundary } from '~/catchBoundary';
 
 export const meta: MetaFunction = ({ data }) => {
   const { description } = data;
@@ -27,8 +26,6 @@ export async function loader({ params }: { params: { id: string } }) {
 
   return { preview: transformPreview(fixture) };
 }
-
-export const CatchBoundary = idCatchBoundary('match preview');
 
 export const links = () => [{ rel: 'stylesheet', href: articletStyles }];
 
