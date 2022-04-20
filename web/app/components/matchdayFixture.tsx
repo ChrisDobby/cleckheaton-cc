@@ -1,7 +1,7 @@
 import { format } from 'date-fns';
 import { Fixture } from '~/types';
 import FixtureDescription from './fixtureDescription';
-import MatchballSponsor from './matchBallSponsor';
+import MatchballSponsor from './matchballSponsor';
 
 type Props = { fixture: Fixture };
 

@@ -7,8 +7,8 @@ import { sortSponsors, sortFixtures } from '~/sort';
 import { transformMatchDay } from '~/transform';
 import { getMatchDates, isMatchDay } from '~/matchDays';
 
-import sponsorsStyles from '../components/sponsors.css';
-import matchdayStyles from '../components/matchday.css';
+import sponsorsStyles from '~/components/sponsors.css';
+import matchdayStyles from '~/components/matchday.css';
 
 export const links = () => [
   { rel: 'stylesheet', href: sponsorsStyles },

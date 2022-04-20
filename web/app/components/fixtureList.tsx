@@ -2,7 +2,7 @@ import { Link } from 'remix';
 import { format } from 'date-fns';
 import { sortFixtures } from '~/sort';
 import { Fixture } from '~/types';
-import MatchballSponsor from './matchBallSponsor';
+import MatchballSponsor from './matchballSponsor';
 
 type FixtureProps = { fixture: Fixture };
 const Fixture = ({ fixture }: FixtureProps) => (

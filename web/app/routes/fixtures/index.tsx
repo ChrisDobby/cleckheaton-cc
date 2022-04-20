@@ -3,7 +3,7 @@ import { getClient } from '~/sanity/getClient';
 import FixtureList from '~/components/fixtureList';
 import { Fixture } from '~/types';
 import fixtureListStyles from '~/components/fixtureList.css';
-import matchBallSponsorStyles from '~/components/matchBallSponsor';
+import matchBallSponsorStyles from '~/components/matchballSponsor';
 
 export const meta: MetaFunction = () => ({
   title: 'Fixtures',
