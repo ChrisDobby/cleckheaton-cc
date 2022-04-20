@@ -55,6 +55,10 @@
   color: #fff;
 }
 
+.latest-result-description .latest-result-single-line {
+  display: none;
+}
+
 @media screen and (min-width: 768px) {
   .latest-results-section {
     min-width: auto;
