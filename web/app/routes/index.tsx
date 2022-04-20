@@ -52,7 +52,7 @@ export const links = () => [
 
 export default function Index() {
   const { fixtures, events, news, sponsors, latestResults } = useLoaderData();
-  console.log('latestResults', latestResults);
+
   return (
     <>
       <UpcomingFixtures fixtures={fixtures} />
