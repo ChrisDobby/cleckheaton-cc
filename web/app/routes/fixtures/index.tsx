@@ -1,12 +1,17 @@
-import { useLoaderData } from 'remix';
+import { useLoaderData, MetaFunction } from 'remix';
 import { getClient } from '~/sanity/getClient';
 import FixtureList from '~/components/fixtureList';
 import { Fixture } from '~/types';
 import fixtureListStyles from '~/components/fixtureList.css';
 
+export const meta: MetaFunction = () => ({
+  title: 'Fixtures',
+  description: 'Cleckheaton Cricket Club fixtures for this season',
+});
+
 export async function loader() {
   const fixtures = await getClient().fetch(
-    `*[_type == "fixture"]{ _id, matchDate, opposition, team, venue, preview, result, competition->{name} }`
+    `*[_type == "fixture"]{ _id, matchDate, opposition, team, venue, preview, result, report, scorecard, competition->{name} }`
   );
 
   return {

@@ -1,3 +1,4 @@
+import { Link } from 'remix';
 import { format } from 'date-fns';
 import { sortFixtures } from '~/sort';
 import { Fixture } from '~/types';
@@ -12,7 +13,28 @@ const Fixture = ({ fixture }: FixtureProps) => (
       <p className='fixture-opposition'>{`${fixture.opposition} (${fixture.venue})`}</p>
       <p className='fixture-competition'>{fixture.competition.name}</p>
     </div>
+    {fixture.preview && (
+      <Link className='fixture-preview' to={`/fixtures/${fixture._id}/preview`}>
+        Preview
+      </Link>
+    )}
     {fixture.result && <div className='fixture-result'>{fixture.result}</div>}
+    <div className='fixture-links'>
+      {fixture.scorecard && (
+        <a
+          className='fixture-scorecard'
+          href={fixture.scorecard}
+          target='_blank'
+        >
+          Scorecard
+        </a>
+      )}
+      {fixture.report && (
+        <Link className='fixture-report' to={`/fixtures/${fixture._id}/report`}>
+          Match report
+        </Link>
+      )}
+    </div>
   </>
 );
 

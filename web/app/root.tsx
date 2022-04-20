@@ -11,9 +11,10 @@ import Header from './components/header';
 import headerStyles from './components/header.css';
 import rootStyles from './styles/root.css';
 
-export const meta: MetaFunction = () => {
-  return { title: 'Cleckheaton Cricket Club' };
-};
+export const meta: MetaFunction = () => ({
+  title: 'Cleckheaton Cricket Club',
+  description: 'Website of Cleckheaton Cricket Club',
+});
 
 export const links = () => [
   { rel: 'stylesheet', href: headerStyles },

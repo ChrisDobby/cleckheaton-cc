@@ -1,8 +1,18 @@
-import { useLoaderData } from 'remix';
+import { useLoaderData, MetaFunction, useCatch } from 'remix';
 import { getClient } from '~/sanity/getClient';
 import { News } from '~/types';
-import newsStyles from '~/components/fullNewsItem.css';
-import FullNewsItem from '~/components/fullNewsItem';
+import Article from '~/components/article';
+
+import articleStyles from '~/components/article.css';
+import { idCatchBoundary } from '~/catchBoundary';
+
+export const meta: MetaFunction = ({ data }) => {
+  const { title, subTitle } = data;
+  return {
+    title,
+    description: subTitle,
+  };
+};
 
 export async function loader({ params }: { params: { id: string } }) {
   const { id } = params;
@@ -17,9 +27,11 @@ export async function loader({ params }: { params: { id: string } }) {
   return { newsItem };
 }
 
-export const links = () => [{ rel: 'stylesheet', href: newsStyles }];
+export const links = () => [{ rel: 'stylesheet', href: articleStyles }];
+
+export const CatchBoundary = idCatchBoundary('news item');
 
 export default function Index() {
   const { newsItem } = useLoaderData() as { newsItem: News };
-  return <FullNewsItem newsItem={newsItem} />;
+  return <Article {...newsItem} text={newsItem.description} />;
 }

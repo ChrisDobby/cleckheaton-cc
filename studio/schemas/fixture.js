@@ -51,6 +51,16 @@ export default {
       title: 'Result',
       type: 'string',
     },
+    {
+      name: 'report',
+      title: 'Report',
+      type: 'blockContent',
+    },
+    {
+      name: 'scorecard',
+      title: 'Scorecard',
+      type: 'url',
+    },
   ],
   orderings: [
     {

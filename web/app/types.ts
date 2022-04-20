@@ -2,10 +2,12 @@ export type Fixture = {
   _id: string;
   matchDate: string;
   opposition: string;
-  preview?: string;
+  preview?: any;
   team: string;
   venue: string;
   result?: string;
+  report?: any;
+  scorecard?: string;
   competition: { name: string };
 };
 
@@ -31,4 +33,19 @@ export type Sponsor = {
   imageUrl: string;
   url: string;
   position: number;
+};
+
+export type MatchResult = {
+  _id: string;
+  date: string;
+  description: string;
+  result: string;
+  scorecard?: string;
+  report?: any;
+};
+
+export type MatchPreview = {
+  date: string;
+  description: string;
+  preview: any;
 };
