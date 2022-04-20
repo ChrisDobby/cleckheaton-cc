@@ -1,6 +1,6 @@
 import { useCatch } from 'remix';
 
-export const idCatchBoundary = (item: string) => {
+export const idCatchBoundary = (item: string) => () => {
   const { status, statusText } = useCatch();
 
   if (status === 404) {
