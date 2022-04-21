@@ -69,3 +69,7 @@
     min-width: auto;
   }
 }
+
+.fixture-description {
+  text-align: center;
+}
