@@ -19,11 +19,17 @@ const Fixture = ({ fixture }: { fixture: Fixture }) => (
       </span>
       <span>{`${fixture.team} team`}</span>
     </h4>
-    <h5 className='fixture-competition'>{fixture.competition.name}</h5>
+    <div className='fixture-competition-preview'>
+      <h5 className='fixture-competition'>{fixture.competition.name}</h5>
+      {fixture.preview && (
+        <Link className='fixture-preview-link' to={`/preview/${fixture._id}`}>
+          Preview
+        </Link>
+      )}
+    </div>
     <FixtureDescription fixture={fixture} />
-    <MatchballSponsor {...fixture} />
-    <div className='fixture-preview-link'>
-      {fixture.preview && <Link to={`/preview/${fixture._id}`}>Preview</Link>}
+    <div className='fixture-sponsor'>
+      <MatchballSponsor {...fixture} />
     </div>
   </article>
 );

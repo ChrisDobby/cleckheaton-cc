@@ -35,18 +35,23 @@
   flex: 1;
 }
 
+.fixture-competition-preview {
+  margin-top: 8px;
+  display: flex;
+}
+
 .fixture-competition {
   margin: 0;
-  margin-top: 8px;
+  flex: 1;
 }
 
 .fixture-preview-link {
-  height: 20px;
   color: #fff;
 }
 
-.fixture-preview-link a {
-  color: #fff;
+.fixture-sponsor {
+  height: 2rem;
+  margin-top: -0.875rem
 }
 
 @media screen and (min-width: 768px) {
