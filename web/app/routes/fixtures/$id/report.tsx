@@ -32,17 +32,16 @@ export const links = () => [{ rel: 'stylesheet', href: articletStyles }];
 export default function Index() {
   const { result } = useLoaderData() as { result: MatchResult };
   return (
-    <>
-      <Article
-        title={`${result.date}: ${result.description}`}
-        subtitle={result.result}
-        text={result.report}
-      />
+    <Article
+      title={`${result.date}: ${result.description}`}
+      subtitle={result.result}
+      text={result.report}
+    >
       {result.scorecard && (
         <a style={{ color: '#fff' }} href={result.scorecard} target='_blank'>
           Scorecard
         </a>
       )}
-    </>
+    </Article>
   );
 }
