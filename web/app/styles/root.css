@@ -34,3 +34,18 @@ main {
   padding-left: 16px;
   color: #fff;
 }
+
+.error-message-box {
+  background-color: #00529e;
+  border-radius: 4px;
+  padding: 8px;
+  opacity: 0.8;
+  margin-right: auto;
+  margin-left: auto;
+  color: #fff;
+  text-align: center;
+  text-decoration: inherit;
+  display: block;
+  margin-top: 2rem;
+  max-width: 30rem;
+}

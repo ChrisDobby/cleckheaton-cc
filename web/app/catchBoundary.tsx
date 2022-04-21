@@ -4,12 +4,18 @@ export const idCatchBoundary = (item: string) => () => {
   const { status, statusText } = useCatch();
 
   if (status === 404) {
-    return <h4>The {item} was not found</h4>;
+    return (
+      <div className='error-message-box'>
+        <h4>The {item} was not found</h4>
+      </div>
+    );
   }
 
   return (
-    <h4>
-      {status}: {statusText}
-    </h4>
+    <div className='error-message-box'>
+      <h4>
+        {status}: {statusText}
+      </h4>
+    </div>
   );
 };

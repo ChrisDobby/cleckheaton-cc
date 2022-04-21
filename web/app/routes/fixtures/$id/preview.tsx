@@ -3,10 +3,17 @@ import { getClient } from '~/sanity/getClient';
 import { MatchPreview } from '~/types';
 import Article from '~/components/article';
 import { transformPreview } from '~/transform';
+import { idCatchBoundary } from '~/catchBoundary';
 
 import articletStyles from '~/components/article.css';
 
-export const meta: MetaFunction = ({ data }) => {
+export const meta: MetaFunction = ({ data, params }) => {
+  if (!data) {
+    return {
+      title: 'Match preview not found',
+      description: `No match preview with id ${params.id} found`,
+    };
+  }
   const {
     preview: { description },
   } = data;
@@ -30,6 +37,8 @@ export async function loader({ params }: { params: { id: string } }) {
 }
 
 export const links = () => [{ rel: 'stylesheet', href: articletStyles }];
+
+export const CatchBoundary = idCatchBoundary('match preview');
 
 export default function Index() {
   const { preview } = useLoaderData() as { preview: MatchPreview };

@@ -1,11 +1,18 @@
-import { useLoaderData, MetaFunction, useCatch } from 'remix';
+import { useLoaderData, MetaFunction } from 'remix';
 import { getClient } from '~/sanity/getClient';
 import { News } from '~/types';
 import Article from '~/components/article';
+import { idCatchBoundary } from '~/catchBoundary';
 
 import articleStyles from '~/components/article.css';
 
-export const meta: MetaFunction = ({ data }) => {
+export const meta: MetaFunction = ({ data, params }) => {
+  if (!data) {
+    return {
+      title: 'News item not found',
+      description: `No news item with id ${params.id} found`,
+    };
+  }
   const {
     newsItem: { title, subTitle },
   } = data;
@@ -28,6 +35,8 @@ export async function loader({ params }: { params: { id: string } }) {
 
   return { newsItem };
 }
+
+export const CatchBoundary = idCatchBoundary('news item');
 
 export const links = () => [{ rel: 'stylesheet', href: articleStyles }];
 

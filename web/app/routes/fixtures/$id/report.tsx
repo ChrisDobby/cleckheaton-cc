@@ -3,10 +3,18 @@ import { getClient } from '~/sanity/getClient';
 import { MatchResult } from '~/types';
 import Article from '~/components/article';
 import { transformLatestResult } from '~/transform';
+import { idCatchBoundary } from '~/catchBoundary';
 
 import articletStyles from '~/components/article.css';
 
-export const meta: MetaFunction = ({ data }) => {
+export const meta: MetaFunction = ({ data, params }) => {
+  if (!data) {
+    return {
+      title: 'Match report not found',
+      description: `No match report with id ${params.id} found`,
+    };
+  }
+
   const {
     result: { result },
   } = data;
@@ -30,6 +38,8 @@ export async function loader({ params }: { params: { id: string } }) {
 }
 
 export const links = () => [{ rel: 'stylesheet', href: articletStyles }];
+
+export const CatchBoundary = idCatchBoundary('match report');
 
 export default function Index() {
   const { result } = useLoaderData() as { result: MatchResult };
