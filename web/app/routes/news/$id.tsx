@@ -6,7 +6,10 @@ import Article from '~/components/article';
 import articleStyles from '~/components/article.css';
 
 export const meta: MetaFunction = ({ data }) => {
-  const { title, subTitle } = data;
+  const {
+    newsItem: { title, subTitle },
+  } = data;
+
   return {
     title,
     description: subTitle,

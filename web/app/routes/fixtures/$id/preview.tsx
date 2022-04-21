@@ -7,7 +7,9 @@ import { transformPreview } from '~/transform';
 import articletStyles from '~/components/article.css';
 
 export const meta: MetaFunction = ({ data }) => {
-  const { description } = data;
+  const {
+    preview: { description },
+  } = data;
   return {
     title: description,
     description: 'Cleckheaton CC match preview>',

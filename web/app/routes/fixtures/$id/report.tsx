@@ -7,9 +7,11 @@ import { transformLatestResult } from '~/transform';
 import articletStyles from '~/components/article.css';
 
 export const meta: MetaFunction = ({ data }) => {
-  const { description } = data;
+  const {
+    result: { result },
+  } = data;
   return {
-    title: description,
+    title: result,
     description: 'Cleckheaton CC match report',
   };
 };
