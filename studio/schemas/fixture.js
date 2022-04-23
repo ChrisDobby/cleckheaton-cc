@@ -71,6 +71,13 @@ export default {
       title: 'Matchball Sponsor Url',
       type: 'url',
     },
+    {
+      name: 'teamSelection',
+      title: 'Team Selection',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'player' }] }],
+      validation: (Rule) => Rule.unique(),
+    },
   ],
   orderings: [
     {
