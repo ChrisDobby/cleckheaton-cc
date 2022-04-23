@@ -1,3 +1,12 @@
+export type Player = {
+  _id: string;
+  name: string;
+  imageUrl?: string;
+  sponsor?: string;
+  sponsorUrl?: string;
+  sponsorImageUrl?: string;
+};
+
 export type Fixture = {
   _id: string;
   matchDate: string;
@@ -11,6 +20,7 @@ export type Fixture = {
   matchballSponsor?: string;
   matchballSponsorUrl?: string;
   competition: { name: string };
+  teamSelection?: Player[];
 };
 
 export type Event = {

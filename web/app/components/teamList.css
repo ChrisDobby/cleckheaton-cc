@@ -1,0 +1,21 @@
+.player-list {
+  list-style: none;
+  padding-left: 0;
+}
+.player-line {
+  margin-bottom: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid #fff;
+}
+
+.player-name {
+  margin: 0;
+  display: block;
+  font-weight: 700;
+}
+
+.player-sponsor {
+  display: block;
+  text-align: right;
+  color: #fff;
+}
