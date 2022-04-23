@@ -17,8 +17,6 @@ const MatchdayFixture = ({ fixture }: Props) => (
     <div className='matchday-fixture-details'>
       <h5>Start time</h5>
       <p>{format(new Date(fixture.matchDate), 'HH:mm')}</p>
-      <h5>Venue</h5>
-      <p></p>
     </div>
     <MatchballSponsor {...fixture} />
     {!fixture.result && <p>Live updates will appear here when available...</p>}
