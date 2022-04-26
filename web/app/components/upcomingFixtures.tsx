@@ -21,14 +21,9 @@ const Fixture = ({ fixture }: { fixture: Fixture }) => (
     </h4>
     <div className='fixture-competition-preview'>
       <h5 className='fixture-competition'>{fixture.competition.name}</h5>
-      {fixture.hasPreview && (
-        <Link
-          className='fixture-preview-link'
-          to={`/fixtures/${fixture._id}/preview`}
-        >
-          Preview
-        </Link>
-      )}
+      <Link className='fixture-details-link' to={`/fixtures/${fixture._id}`}>
+        Match details
+      </Link>
     </div>
     <FixtureDescription fixture={fixture} />
     <div className='fixture-sponsor'>
