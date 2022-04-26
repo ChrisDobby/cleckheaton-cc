@@ -21,7 +21,7 @@ const LatestResult = ({ result }: Props) => (
           Scorecard
         </a>
       )}
-      {result.report && (
+      {result.hasReport && (
         <Link
           className='latest-result-report'
           to={`/fixtures/${result._id}/report`}

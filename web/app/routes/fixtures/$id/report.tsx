@@ -1,8 +1,8 @@
 import { useLoaderData, MetaFunction } from 'remix';
 import { getClient } from '~/sanity/getClient';
-import { MatchResult } from '~/types';
+import { MatchReport } from '~/types';
 import Article from '~/components/article';
-import { transformLatestResult } from '~/transform';
+import { transformReport } from '~/transform';
 import { idCatchBoundary } from '~/catchBoundary';
 
 import articletStyles from '~/components/article.css';
@@ -34,7 +34,9 @@ export async function loader({ params }: { params: { id: string } }) {
     throw new Response('Not Found', { status: 404 });
   }
 
-  return { result: transformLatestResult(fixture) };
+  console.log(fixture);
+
+  return { result: transformReport(fixture) };
 }
 
 export const links = () => [{ rel: 'stylesheet', href: articletStyles }];
@@ -42,7 +44,8 @@ export const links = () => [{ rel: 'stylesheet', href: articletStyles }];
 export const CatchBoundary = idCatchBoundary('match report');
 
 export default function Index() {
-  const { result } = useLoaderData() as { result: MatchResult };
+  const { result } = useLoaderData() as { result: MatchReport };
+  console.log(result);
   return (
     <Article
       title={`${result.date}: ${result.description}`}

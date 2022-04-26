@@ -1,0 +1,72 @@
+.matchday-label {
+  font-size: 0.875rem;
+  color: #000;
+  font-weight: 600;
+}
+
+.matchday-fixture {
+  background-color: #00529e;
+  border-radius: 4px;
+  padding: 8px;
+  opacity: 0.8;
+  margin-right: 16px;
+  color: #fff;
+  text-decoration: inherit;
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.matchday-fixture-result {
+  font-size: 0.875rem;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  font-size: 600;
+}
+
+.matchday-fixture .fixture-description {
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.matchday-fixture-competition-team {
+  font-weight: 600;
+  padding-bottom: 4px;
+  border-bottom: 1px solid #fff;
+  margin: 0;
+  display: flex;
+}
+
+.matchday-fixture-competition-team .matchday-fixture-team {
+  flex: 1;
+}
+
+.matchday-fixture-details {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 1rem;
+  row-gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.matchday-fixture-details h5, .matchday-fixture-details p {
+  margin: 0;
+}
+
+.matchday-fixture-team-list {
+  margin-top: 1rem;
+  border-top: solid 1px #fff;
+  padding-left: 2rem;
+}
+
+.matchday-fixture-preview, .matchday-fixture-report {
+  color: #fff;
+}
+
+@media screen and (min-width: 768px) {
+  .matchday {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1rem;
+  }
+}

@@ -60,7 +60,7 @@
   justify-content: flex-end;
 }
 
-.fixture-scorecard, .fixture-report {
+.fixture-scorecard, .fixture-report, .fixture-preview {
   color: #fff;
   font-weight: 700;
 }
@@ -104,4 +104,10 @@
   .fixture-opposition {
     flex: 1;
   }
+}
+
+.matchball-sponsor-line {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  margin: 0;
 }

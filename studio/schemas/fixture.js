@@ -61,6 +61,23 @@ export default {
       title: 'Scorecard',
       type: 'url',
     },
+    {
+      name: 'matchballSponsor',
+      title: 'Matchball Sponsor',
+      type: 'string',
+    },
+    {
+      name: 'matchballSponsorUrl',
+      title: 'Matchball Sponsor Url',
+      type: 'url',
+    },
+    {
+      name: 'teamSelection',
+      title: 'Team Selection',
+      type: 'array',
+      of: [{ type: 'reference', to: [{ type: 'player' }] }],
+      validation: (Rule) => Rule.unique(),
+    },
   ],
   orderings: [
     {
