@@ -59,6 +59,10 @@
   padding-left: 2rem;
 }
 
+.matchday-fixture-preview, .matchday-fixture-report {
+  color: #fff;
+}
+
 @media screen and (min-width: 768px) {
   .matchday {
     display: grid;

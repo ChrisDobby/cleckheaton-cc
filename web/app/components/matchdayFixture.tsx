@@ -1,3 +1,4 @@
+import { Link } from 'remix';
 import { format } from 'date-fns';
 import { Fixture } from '~/types';
 import FixtureDescription from './fixtureDescription';
@@ -20,8 +21,24 @@ const MatchdayFixture = ({ fixture }: Props) => (
       <p>{format(new Date(fixture.matchDate), 'HH:mm')}</p>
     </div>
     <MatchballSponsor {...fixture} />
+    {!fixture.result && fixture.hasPreview && (
+      <Link
+        className='matchday-fixture-preview'
+        to={`/fixtures/${fixture._id}/preview`}
+      >
+        Preview
+      </Link>
+    )}
     {fixture.result && (
       <div className='matchday-fixture-result'>{fixture.result}</div>
+    )}
+    {fixture.hasReport && (
+      <Link
+        className='matchday-fixture-report'
+        to={`/fixtures/${fixture._id}/report`}
+      >
+        Match report
+      </Link>
     )}
     {!fixture.result && <p>Live updates will appear here when available...</p>}
     {!fixture.result && fixture.teamSelection && (

@@ -31,7 +31,7 @@ export async function loader() {
   const [fromMatchDate, toMatchDate] = getMatchDates(today);
   const [fixtures, sponsors] = (await Promise.all([
     getClient().fetch(
-      `*[_type == "fixture" && matchDate >= "${fromMatchDate}" && matchDate <= "${toMatchDate}"]{ _id, matchDate, opposition, team, venue, "hasPreview": defined(preview), result, matchballSponsor, matchballSponsorUrl, teamSelection[]->{_id,name,sponsor,sponsorUrl,"sponsorImageUrl":sponsorImage.asset->url}, competition->{name} }`
+      `*[_type == "fixture" && matchDate >= "${fromMatchDate}" && matchDate <= "${toMatchDate}"]{ _id, matchDate, opposition, team, venue, "hasPreview": defined(preview), "hasReport": defined(report), result, matchballSponsor, matchballSponsorUrl, teamSelection[]->{_id,name,sponsor,sponsorUrl,"sponsorImageUrl":sponsorImage.asset->url}, competition->{name} }`
     ),
     getClient().fetch(
       `*[_type == "sponsor"]{ _id, title, url, position, "imageUrl":image.asset->url }`
