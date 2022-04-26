@@ -15,7 +15,7 @@ const Fixture = ({ fixture }: FixtureProps) => (
       <p className='fixture-competition'>{fixture.competition.name}</p>
     </div>
     <MatchballSponsor {...fixture} />
-    {fixture.preview && (
+    {fixture.hasPreview && (
       <Link className='fixture-preview' to={`/fixtures/${fixture._id}/preview`}>
         Preview
       </Link>
@@ -31,7 +31,7 @@ const Fixture = ({ fixture }: FixtureProps) => (
           Scorecard
         </a>
       )}
-      {fixture.report && (
+      {fixture.hasReport && (
         <Link className='fixture-report' to={`/fixtures/${fixture._id}/report`}>
           Match report
         </Link>

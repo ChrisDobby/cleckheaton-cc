@@ -12,7 +12,7 @@ export const meta: MetaFunction = () => ({
 
 export async function loader() {
   const fixtures = await getClient().fetch(
-    `*[_type == "fixture"]{ _id, matchDate, opposition, team, venue, preview, result, report, scorecard, matchballSponsor, matchballSponsorUrl, competition->{name} }`
+    `*[_type == "fixture"]{ _id, matchDate, opposition, team, venue, "hasPreview": defined(preview), result, "hasReport": defined(report), scorecard, matchballSponsor, matchballSponsorUrl, competition->{name} }`
   );
 
   return {

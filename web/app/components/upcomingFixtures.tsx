@@ -21,8 +21,11 @@ const Fixture = ({ fixture }: { fixture: Fixture }) => (
     </h4>
     <div className='fixture-competition-preview'>
       <h5 className='fixture-competition'>{fixture.competition.name}</h5>
-      {fixture.preview && (
-        <Link className='fixture-preview-link' to={`/preview/${fixture._id}`}>
+      {fixture.hasPreview && (
+        <Link
+          className='fixture-preview-link'
+          to={`/fixtures/${fixture._id}/preview`}
+        >
           Preview
         </Link>
       )}

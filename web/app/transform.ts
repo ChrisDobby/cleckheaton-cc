@@ -1,6 +1,13 @@
 import { format } from 'date-fns';
 import { isAfter, isBefore, isSameDay } from 'date-fns';
-import { Fixture, MatchDay, MatchPreview, MatchResult } from './types';
+import {
+  DetailedFixture,
+  Fixture,
+  MatchDay,
+  MatchPreview,
+  MatchReport,
+  MatchResult,
+} from './types';
 
 const getFixtureFields = (fixture: Fixture) => {
   const descriptionPrefix =
@@ -18,11 +25,19 @@ export const transformLatestResult = (fixture: Fixture): MatchResult => ({
   _id: fixture._id,
   ...getFixtureFields(fixture),
   result: fixture.result as string,
+  hasReport: fixture.hasReport,
+  scorecard: fixture.scorecard,
+});
+
+export const transformReport = (fixture: DetailedFixture): MatchReport => ({
+  _id: fixture._id,
+  ...getFixtureFields(fixture),
+  result: fixture.result as string,
   report: fixture.report,
   scorecard: fixture.scorecard,
 });
 
-export const transformPreview = (fixture: Fixture): MatchPreview => ({
+export const transformPreview = (fixture: DetailedFixture): MatchPreview => ({
   ...getFixtureFields(fixture),
   preview: fixture.preview,
 });

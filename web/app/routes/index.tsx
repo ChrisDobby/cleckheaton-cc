@@ -23,7 +23,7 @@ export async function loader() {
 
   const [fixtures, events, news, sponsors, latestResults] = (await Promise.all([
     getClient().fetch(
-      `*[_type == "fixture" && matchDate >= now()] | order(matchDate asc)[0...4]{ _id, matchDate, opposition, team, venue, preview, matchballSponsor, matchballSponsorUrl, competition->{name} }`
+      `*[_type == "fixture" && matchDate >= now()] | order(matchDate asc)[0...4]{ _id, matchDate, opposition, team, venue, "hasPreview": defined(preview), matchballSponsor, matchballSponsorUrl, competition->{name} }`
     ),
     getClient().fetch(
       `*[_type == "event" && eventDate >= now()] | order(eventDate asc) [0...4]{ _id, eventDate, title, subtitle }`
@@ -35,7 +35,7 @@ export async function loader() {
       `*[_type == "sponsor"]{ _id, title, url, position, "imageUrl":image.asset->url }`
     ),
     getClient().fetch(
-      `*[_type == "fixture" && dateTime(matchDate) < dateTime(now()) && dateTime(matchDate) > dateTime(now()) - 60*60*24*7 && defined(result)] | order(matchDate desc){ _id, matchDate, opposition, team, venue, result, report, scorecard }`
+      `*[_type == "fixture" && dateTime(matchDate) < dateTime(now()) && dateTime(matchDate) > dateTime(now()) - 60*60*24*7 && defined(result)] | order(matchDate desc){ _id, matchDate, opposition, team, venue, result, "hasReport": defined(report), scorecard }`
     ),
   ])) as [Fixture[], Event[], News[], Sponsor[], Fixture[]];
 

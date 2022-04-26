@@ -11,16 +11,21 @@ export type Fixture = {
   _id: string;
   matchDate: string;
   opposition: string;
-  preview?: any;
+  hasPreview: boolean;
   team: string;
   venue: string;
   result?: string;
-  report?: any;
+  hasReport: boolean;
   scorecard?: string;
   matchballSponsor?: string;
   matchballSponsorUrl?: string;
   competition: { name: string };
   teamSelection?: Player[];
+};
+
+export type DetailedFixture = Fixture & {
+  report?: any;
+  preview?: any;
 };
 
 export type Event = {
@@ -53,13 +58,22 @@ export type MatchResult = {
   description: string;
   result: string;
   scorecard?: string;
-  report?: any;
+  hasReport: boolean;
 };
 
 export type MatchPreview = {
   date: string;
   description: string;
   preview: any;
+};
+
+export type MatchReport = {
+  _id: string;
+  date: string;
+  description: string;
+  result: string;
+  scorecard?: string;
+  report: any;
 };
 
 export type MatchDay = {

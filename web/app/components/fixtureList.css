@@ -60,7 +60,7 @@
   justify-content: flex-end;
 }
 
-.fixture-scorecard, .fixture-report {
+.fixture-scorecard, .fixture-report, .fixture-preview {
   color: #fff;
   font-weight: 700;
 }
