@@ -1,4 +1,5 @@
 import { isSaturday, isSunday, format, addDays } from 'date-fns';
+import 'dotenv/config';
 
 const { SEASON_START, SEASON_END } = process.env;
 const SEASON_START_DATE = new Date(SEASON_START as string);
@@ -11,13 +12,13 @@ export const isMatchDay = (date: Date) =>
 
 export const getMatchDates = (date: Date) => {
   if (isSaturday(date)) {
-    return [format(date, 'yyyy-MM-dd'), format(addDays(date, 1), 'yyyy-MM-dd')];
+    return [format(date, 'yyyy-MM-dd'), format(addDays(date, 2), 'yyyy-MM-dd')];
   }
 
   if (isSunday(date)) {
     return [
-      format(date, 'yyyy-MM-dd'),
       format(addDays(date, -1), 'yyyy-MM-dd'),
+      format(addDays(date, 1), 'yyyy-MM-dd'),
     ];
   }
 

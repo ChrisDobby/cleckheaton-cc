@@ -3,7 +3,7 @@ import { Link } from 'remix';
 import SwipeableViews from 'react-swipeable-views';
 
 import { Fixture } from '../types';
-import MatchballSponsor from './matchBallSponsor';
+import MatchballSponsor from './matchballSponsor';
 import FixtureDescription from './fixtureDescription';
 
 type Props = {

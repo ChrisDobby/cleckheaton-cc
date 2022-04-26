@@ -9,12 +9,14 @@ const Matchday = ({ day, fixtures }: Props) => {
   }
 
   return (
-    <div className='matchday'>
+    <>
       <p className='matchday-label'>{day}</p>
-      {fixtures.map((fixture) => (
-        <MatchdayFixture key={fixture._id} fixture={fixture} />
-      ))}
-    </div>
+      <div className='matchday'>
+        {fixtures.map((fixture) => (
+          <MatchdayFixture key={fixture._id} fixture={fixture} />
+        ))}
+      </div>
+    </>
   );
 };
 

@@ -37,7 +37,7 @@ export const transformMatchDay = (fixtures: Fixture[], today: Date): MatchDay =>
             ...matchDay,
             todaysFixtures: [...(matchDay.todaysFixtures || []), fixture],
           };
-        case isBefore(today, matchDate):
+        case isAfter(today, matchDate):
           return {
             ...matchDay,
             yesterdaysFixtures: [
@@ -45,7 +45,7 @@ export const transformMatchDay = (fixtures: Fixture[], today: Date): MatchDay =>
               fixture,
             ],
           };
-        case isAfter(today, matchDate):
+        case isBefore(today, matchDate):
           return {
             ...matchDay,
             tomorrowsFixtures: [...(matchDay.tomorrowsFixtures || []), fixture],

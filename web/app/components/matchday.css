@@ -16,9 +16,17 @@
   margin-bottom: 2rem;
 }
 
+.matchday-fixture-result {
+  font-size: 0.875rem;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  font-size: 600;
+}
+
 .matchday-fixture .fixture-description {
   font-size: 1.25rem;
   font-weight: 700;
+  text-align: center;
 }
 
 .matchday-fixture-competition-team {
@@ -43,4 +51,18 @@
 
 .matchday-fixture-details h5, .matchday-fixture-details p {
   margin: 0;
+}
+
+.matchday-fixture-team-list {
+  margin-top: 1rem;
+  border-top: solid 1px #fff;
+  padding-left: 2rem;
+}
+
+@media screen and (min-width: 768px) {
+  .matchday {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1rem;
+  }
 }
