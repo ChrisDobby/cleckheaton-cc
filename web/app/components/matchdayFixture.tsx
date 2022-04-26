@@ -41,11 +41,13 @@ const MatchdayFixture = ({ fixture }: Props) => (
       </Link>
     )}
     {!fixture.result && <p>Live updates will appear here when available...</p>}
-    {!fixture.result && fixture.teamSelection && (
-      <div className='matchday-fixture-team-list'>
-        <TeamList players={fixture.teamSelection} />
-      </div>
-    )}
+    {!fixture.result &&
+      fixture.teamSelection &&
+      fixture.teamSelection.length > 0 && (
+        <div className='matchday-fixture-team-list'>
+          <TeamList players={fixture.teamSelection} />
+        </div>
+      )}
   </article>
 );
 
