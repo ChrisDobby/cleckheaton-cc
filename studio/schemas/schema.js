@@ -10,6 +10,7 @@ import event from './event';
 import news from './news';
 import fixture from './fixture';
 import sponsor from './sponsor';
+import player from './player';
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -25,6 +26,7 @@ export default createSchema({
     competition,
     news,
     sponsor,
+    player,
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
     blockContent,
