@@ -29,10 +29,9 @@ export async function loader() {
   }
 
   const [fromMatchDate, toMatchDate] = getMatchDates(today);
-  console.log(fromMatchDate, toMatchDate);
   const [fixtures, sponsors] = (await Promise.all([
     getClient().fetch(
-      `*[_type == "fixture" && matchDate >= "${fromMatchDate}" && matchDate <= "${toMatchDate}"]{ _id, matchDate, opposition, team, venue, preview, result, matchballSponsor, matchballSponsorUrl, competition->{name} }`
+      `*[_type == "fixture" && matchDate >= "${fromMatchDate}" && matchDate <= "${toMatchDate}"]{ _id, matchDate, opposition, team, venue, preview, result, matchballSponsor, matchballSponsorUrl, teamSelection[]->{_id,name,sponsor,sponsorUrl,"sponsorImageUrl":sponsorImage.asset->url}, competition->{name} }`
     ),
     getClient().fetch(
       `*[_type == "sponsor"]{ _id, title, url, position, "imageUrl":image.asset->url }`
@@ -51,9 +50,6 @@ export default function Index() {
     matchDay: { todaysFixtures, tomorrowsFixtures, yesterdaysFixtures },
   } = useLoaderData();
 
-  console.log(todaysFixtures);
-  console.log(yesterdaysFixtures);
-  console.log(tomorrowsFixtures);
   return (
     <>
       <Sponsors sponsors={sponsors} />

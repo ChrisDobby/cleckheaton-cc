@@ -21,7 +21,7 @@ const SponsorContent = ({
 
 const PlayerSponsor = ({ player }: { player: Player }) =>
   player.sponsorUrl ? (
-    <a className='player-sponsor' href={player.sponsorUrl}>
+    <a className='player-sponsor' href={player.sponsorUrl} target='_blank'>
       <SponsorContent {...player} />
     </a>
   ) : (
@@ -34,9 +34,6 @@ const SelectedPlayer = ({ player }: { player: Player }) => (
   <li className='player-line'>
     <p className='player-name'>{player.name.toUpperCase()}</p>
     <PlayerSponsor player={player} />
-    <a className='player-sponsor' href='https://dazn.com'>
-      DAZN
-    </a>
   </li>
 );
 
