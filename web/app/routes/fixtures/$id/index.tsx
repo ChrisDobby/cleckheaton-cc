@@ -1,10 +1,25 @@
-import { useLoaderData } from 'remix';
+import { useLoaderData, MetaFunction } from 'remix';
 import { getClient } from '~/sanity/getClient';
 import MatchdayFixture from '~/components/matchdayFixture';
+import { idCatchBoundary } from '~/catchBoundary';
 
 import matchdayStyles from '~/components/matchday.css';
 import matchballSponsorStyles from '~/components/matchballSponsor.css';
 import teamListStyles from '~/components/teamList.css';
+
+export const meta: MetaFunction = ({ data }) => {
+  if (!data) {
+    return {
+      title: 'Match not found',
+    };
+  }
+  const {
+    fixture: { venue, team, opposition },
+  } = data;
+  return {
+    title: `${team} team v ${opposition} (${venue})`,
+  };
+};
 
 export const links = () => [
   { rel: 'stylesheet', href: matchdayStyles },
@@ -23,6 +38,8 @@ export async function loader({ params }: { params: { id: string } }) {
 
   return { fixture };
 }
+
+export const CatchBoundary = idCatchBoundary('match');
 
 export default function Index() {
   const { fixture } = useLoaderData();
