@@ -5,12 +5,14 @@ const NavItem = ({
   to,
   text,
   selected,
+  className,
 }: {
   to: string;
   text: string;
   selected?: boolean;
+  className?: string;
 }) => (
-  <li>
+  <li className={className || ''}>
     <Link to={to} className={`${selected ? 'selected' : ''}`}>
       {text}
     </Link>
@@ -22,6 +24,7 @@ const Header = () => {
   return (
     <div className='wrapper'>
       <header className='header'>
+        <button className='header-burger'></button>
         <Link to='/' className='logo'>
           <img src={logo} />
         </Link>
@@ -29,11 +32,17 @@ const Header = () => {
           <ul className='nav-items'>
             <NavItem to='/' text='HOME' selected={pathname === '/'} />
             <NavItem
+              className='medium-only'
               to='/fixtures'
               text='FIXTURES'
               selected={pathname === '/fixtures'}
             />
             <NavItem to='/news' text='NEWS' selected={pathname === '/news'} />
+            <NavItem
+              to='/players'
+              text='PLAYERS'
+              selected={pathname === '/players'}
+            />
             <li>&nbsp;</li>
           </ul>
         </nav>
