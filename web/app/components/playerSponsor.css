@@ -1,0 +1,10 @@
+.player-sponsor {
+  display: block;
+  text-align: right;
+  color: #fff;
+  margin: 0;
+}
+
+.player-sponsor img {
+  max-height: 2.5rem;
+}

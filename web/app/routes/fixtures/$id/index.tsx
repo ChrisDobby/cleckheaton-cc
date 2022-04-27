@@ -7,6 +7,7 @@ import { Fixture } from '~/types';
 import matchdayStyles from '~/components/matchday.css';
 import matchballSponsorStyles from '~/components/matchballSponsor.css';
 import teamListStyles from '~/components/teamList.css';
+import playerSponsorStyles from '~/components/playerSponsor.css';
 
 export const meta: MetaFunction = ({ data }) => {
   if (!data) {
@@ -26,6 +27,7 @@ export const links = () => [
   { rel: 'stylesheet', href: matchdayStyles },
   { rel: 'stylesheet', href: matchballSponsorStyles },
   { rel: 'stylesheet', href: teamListStyles },
+  { rel: 'stylesheet', href: playerSponsorStyles },
 ];
 
 export async function loader({ params }: { params: { id: string } }) {

@@ -1,9 +1,13 @@
 import { useLoaderData, MetaFunction } from 'remix';
 import { getClient } from '~/sanity/getClient';
 import { Player } from '~/types';
+import PlayerList from '~/components/playerList';
+
+import playersStyles from '~/components/playerList.css';
+import playerSponsorStyles from '~/components/playerSponsor.css';
 
 export const meta: MetaFunction = () => ({
-  title: 'Cleckheaton Cricket Club News',
+  title: 'Cleckheaton Cricket Club Players',
 });
 
 export async function loader() {
@@ -16,7 +20,12 @@ export async function loader() {
   };
 }
 
+export const links = () => [
+  { rel: 'stylesheet', href: playerSponsorStyles },
+  { rel: 'stylesheet', href: playersStyles },
+];
+
 export default function Index() {
   const { players } = useLoaderData<{ players: Player[] }>();
-  return <></>;
+  return <PlayerList players={players} />;
 }

@@ -12,6 +12,7 @@ import matchdayStyles from '~/components/matchday.css';
 import matchballSponsorStyles from '~/components/matchballSponsor.css';
 import teamListStyles from '~/components/teamList.css';
 import carouselStyles from 'react-responsive-carousel/lib/styles/carousel.min.css';
+import playerSponsorStyles from '~/components/playerSponsor.css';
 
 export const links = () => [
   { rel: 'stylesheet', href: sponsorsStyles },
@@ -19,6 +20,7 @@ export const links = () => [
   { rel: 'stylesheet', href: matchballSponsorStyles },
   { rel: 'stylesheet', href: teamListStyles },
   { rel: 'stylesheet', href: carouselStyles },
+  { rel: 'stylesheet', href: playerSponsorStyles },
 ];
 
 export async function loader() {
