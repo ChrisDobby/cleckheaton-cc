@@ -21,6 +21,6 @@ export async function loader() {
 export const links = () => [{ rel: 'stylesheet', href: newsStyles }];
 
 export default function Index() {
-  const { news } = useLoaderData() as { news: News[] };
+  const { news } = useLoaderData<{ news: News[] }>();
   return <NewsList news={news} alwaysVisible />;
 }

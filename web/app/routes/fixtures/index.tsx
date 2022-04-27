@@ -26,7 +26,7 @@ export const links = () => [
 ];
 
 export default function Index() {
-  const { fixtures } = useLoaderData() as { fixtures: Fixture[] };
+  const { fixtures } = useLoaderData<{ fixtures: Fixture[] }>();
   return (
     <div className='fixture-list-grid'>
       <FixtureList

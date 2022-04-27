@@ -2,6 +2,7 @@ import { useLoaderData, MetaFunction } from 'remix';
 import { getClient } from '~/sanity/getClient';
 import MatchdayFixture from '~/components/matchdayFixture';
 import { idCatchBoundary } from '~/catchBoundary';
+import { Fixture } from '~/types';
 
 import matchdayStyles from '~/components/matchday.css';
 import matchballSponsorStyles from '~/components/matchballSponsor.css';
@@ -42,7 +43,7 @@ export async function loader({ params }: { params: { id: string } }) {
 export const CatchBoundary = idCatchBoundary('match');
 
 export default function Index() {
-  const { fixture } = useLoaderData();
+  const { fixture } = useLoaderData<{ fixture: Fixture }>();
 
   return (
     <div

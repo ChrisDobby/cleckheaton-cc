@@ -41,6 +41,6 @@ export const CatchBoundary = idCatchBoundary('news item');
 export const links = () => [{ rel: 'stylesheet', href: articleStyles }];
 
 export default function Index() {
-  const { newsItem } = useLoaderData() as { newsItem: News };
+  const { newsItem } = useLoaderData<{ newsItem: News }>();
   return <Article {...newsItem} text={newsItem.description} />;
 }

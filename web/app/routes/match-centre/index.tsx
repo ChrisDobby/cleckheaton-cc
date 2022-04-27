@@ -2,7 +2,7 @@ import { redirect, useLoaderData } from 'remix';
 import { getClient } from '~/sanity/getClient';
 import Sponsors from '~/components/sponsors';
 import Matchday from '~/components/matchday';
-import { Sponsor, Fixture } from '~/types';
+import { Sponsor, Fixture, MatchDay } from '~/types';
 import { sortSponsors, sortFixtures } from '~/sort';
 import { transformMatchDay } from '~/transform';
 import { getMatchDates, isMatchDay } from '~/matchDays';
@@ -48,7 +48,7 @@ export default function Index() {
   const {
     sponsors,
     matchDay: { todaysFixtures, tomorrowsFixtures, yesterdaysFixtures },
-  } = useLoaderData();
+  } = useLoaderData<{ sponsors: Sponsor[]; matchDay: MatchDay }>();
 
   return (
     <>

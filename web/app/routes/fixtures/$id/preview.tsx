@@ -41,7 +41,7 @@ export const links = () => [{ rel: 'stylesheet', href: articletStyles }];
 export const CatchBoundary = idCatchBoundary('match preview');
 
 export default function Index() {
-  const { preview } = useLoaderData() as { preview: MatchPreview };
+  const { preview } = useLoaderData<{ preview: MatchPreview }>();
   return (
     <Article
       title={preview.description}

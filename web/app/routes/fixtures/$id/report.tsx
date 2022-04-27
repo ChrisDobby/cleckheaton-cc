@@ -44,7 +44,7 @@ export const links = () => [{ rel: 'stylesheet', href: articletStyles }];
 export const CatchBoundary = idCatchBoundary('match report');
 
 export default function Index() {
-  const { result } = useLoaderData() as { result: MatchReport };
+  const { result } = useLoaderData<{ result: MatchReport }>();
   console.log(result);
   return (
     <Article

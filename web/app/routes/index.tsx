@@ -4,7 +4,7 @@ import UpcomingFixtures from '../components/upcomingFixtures';
 import NewsAndEvents from '../components/newsAndEvents';
 import Sponsors from '~/components/sponsors';
 import LatestResults from '~/components/latestResults';
-import { Event, Fixture, News, Sponsor } from '~/types';
+import { Event, Fixture, MatchResult, News, Sponsor } from '~/types';
 import { sortFixtures, sortSponsors } from '~/sort';
 import { transformLatestResult } from '~/transform';
 import { isMatchDay } from '~/matchDays';
@@ -58,7 +58,13 @@ export const links = () => [
 ];
 
 export default function Index() {
-  const { fixtures, events, news, sponsors, latestResults } = useLoaderData();
+  const { fixtures, events, news, sponsors, latestResults } = useLoaderData<{
+    fixtures: Fixture[];
+    events: Event[];
+    news: News[];
+    sponsors: Sponsor[];
+    latestResults: MatchResult[];
+  }>();
 
   return (
     <>
