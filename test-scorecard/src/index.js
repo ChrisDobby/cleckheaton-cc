@@ -16,11 +16,14 @@ import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
   setInterval(async () => {
     const content = await page.$eval('#pcScorecard', (el) => el.innerHTML);
     console.log(content);
-    // const s3 = new S3Client({});
-    // const command = new PutObjectCommand({
-    //   Bucket: 'cleckheaton-cc-live-scores-test-1',
-    //   Body: content,
-    // });
-    // s3.send(command);
+    const s3 = new S3Client({});
+    const command = new PutObjectCommand({
+      Bucket: 'cleckheaton-cc-live-scores-test-1',
+      Body: content,
+      Key: `${new Date().toISOString()}.html`,
+    });
+    console.log('sending to s3');
+    await s3.send(command);
+    console.log('sent');
   }, 300000);
 })();
