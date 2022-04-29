@@ -16,7 +16,7 @@ import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
   setInterval(async () => {
     const content = await page.$eval('#pcScorecard', (el) => el.innerHTML);
     console.log(content);
-    const s3 = new S3Client({});
+    const s3 = new S3Client({ region: 'us-east-1' });
     const command = new PutObjectCommand({
       Bucket: 'cleckheaton-cc-live-scores-test-1',
       Body: content,
