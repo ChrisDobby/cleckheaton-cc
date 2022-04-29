@@ -13,7 +13,7 @@ const NavItem = ({
   className?: string;
 }) => (
   <li className={className || ''}>
-    <Link to={to} className={`${selected ? 'selected' : ''}`}>
+    <Link to={to} className={`${selected ? 'selected' : ''}`} prefetch='render'>
       {text}
     </Link>
   </li>
