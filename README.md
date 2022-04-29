@@ -1,3 +1,3 @@
 # cleckheaton-cc
-The new [`cleckheaton CC website](https://cleckheatoncricketclub.org.uk/) 
+The new [cleckheaton CC website](https://cleckheatoncricketclub.org.uk/) 
 
