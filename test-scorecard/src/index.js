@@ -11,10 +11,10 @@ import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
   const [acceptButton] = await page.$x('//button[text()="ACCEPT"]');
   await acceptButton.click();
 
-  page.$eval('#pcScorecard-tab', (el) => el.click());
+  page.$eval('#nvScorecardTab-tab', (el) => el.click());
 
   setInterval(async () => {
-    const content = await page.$eval('#pcScorecard', (el) => el.innerHTML);
+    const content = await page.$eval('#nvScorecardTab', (el) => el.innerHTML);
     console.log(content);
     const s3 = new S3Client({ region: 'us-east-1' });
     const command = new PutObjectCommand({
