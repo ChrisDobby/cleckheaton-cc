@@ -32,6 +32,15 @@ const MatchdayFixture = ({ fixture }: Props) => (
     {fixture.result && (
       <div className='matchday-fixture-result'>{fixture.result}</div>
     )}
+    {fixture.result && fixture.scorecard && (
+      <a
+        className='matchday-fixture-scorecard'
+        href={fixture.scorecard}
+        target='_blank'
+      >
+        Scorecard
+      </a>
+    )}
     {fixture.hasReport && (
       <Link
         className='matchday-fixture-report'
