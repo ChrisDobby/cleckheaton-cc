@@ -30,7 +30,13 @@ const Header = () => {
         </Link>
         <nav className='nav-bar'>
           <ul className='nav-items'>
-            <NavItem to='/' text='HOME' selected={pathname === '/'} />
+            <NavItem
+              to='/'
+              text='HOME'
+              selected={
+                pathname === '/' || pathname.startsWith('/match-centre')
+              }
+            />
             <NavItem
               className='medium-only'
               to='/fixtures'
