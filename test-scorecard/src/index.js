@@ -1,6 +1,22 @@
 import puppeteer from 'puppeteer';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const findScorecardTab = async (page) => {
+  let scorecardTab = null;
+  while (true) {
+    scorecardTab = await page.$('#nvScorecardTab-tab');
+    if (scorecardTab) {
+      break;
+    }
+
+    await sleep(300000);
+  }
+
+  return scorecardTab;
+};
+
 (async () => {
   const browser = await puppeteer.launch({ headless: true });
   const page = await browser.newPage();
@@ -11,6 +27,7 @@ import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
   const [acceptButton] = await page.$x('//button[text()="ACCEPT"]');
   await acceptButton.click();
 
+  await findScorecardTab(page);
   page.$eval('#nvScorecardTab-tab', (el) => el.click());
 
   setInterval(async () => {
