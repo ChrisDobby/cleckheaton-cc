@@ -109,3 +109,7 @@ dist
 
 lib
 dist
+
+.terraform
+.terraform.lock.hcl
+.tfplan
