@@ -25,14 +25,15 @@ export const links = () => [
 
 const getScorecardObjectName = (fixture: Fixture) => {
   const date = new Date(fixture.matchDate);
-  date.setHours(0, 0, 0, 0);
-
-  return `${date.getTime()}-${fixture.team === '1st' ? 'first' : 'second'}-team.json`;
+  const utc = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+  utc.setHours(1, 0, 0, 0);
+  return `${utc.getTime()}-${fixture.team === '1st' ? 'first' : 'second'}-team.json`;
 };
 
 const getLiveScorecardForFixture = async (fixture: Fixture) => {
-  const scorecardResponse = await fetch(`https://cleckheaton-cc-live-scorecards.s3.eu-west-2.amazonaws.com/${getScorecardObjectName(fixture)}`);
-  return { fixtureId: fixture._id, liveScorecard: scorecardResponse.ok ? await scorecardResponse.json() : null };
+  const url = `https://cleckheaton-cc-live-scorecards.s3.eu-west-2.amazonaws.com/${getScorecardObjectName(fixture)}`;
+  const scorecardResponse = await fetch(url);
+  return { fixtureId: fixture._id, liveScorecard: scorecardResponse.ok ? { url, scorecard: await scorecardResponse.json() } : undefined };
 };
 
 const addLiveScorecardsToFixtures = async (fixtures: Fixture[]) => {
@@ -60,9 +61,8 @@ export async function loader() {
   ])) as [Fixture[], Sponsor[]];
 
   const fixturesWithLiveScorecards = await addLiveScorecardsToFixtures(fixtures);
-  console.log(fixturesWithLiveScorecards);
   return {
-    matchDay: transformMatchDay(fixtures.sort(sortFixtures), today),
+    matchDay: transformMatchDay(fixturesWithLiveScorecards.sort(sortFixtures), today),
     sponsors: sponsors.sort(sortSponsors),
   };
 }
