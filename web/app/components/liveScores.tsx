@@ -113,9 +113,9 @@ const Scores = ({ liveScore }: ScoreProps) => {
   );
 };
 
-type Props = { fixture: Fixture };
+type Props = { fixture: Fixture; onCardAvailable: () => void };
 
-const LiveScores = ({ fixture }: Props) => {
+const LiveScores = ({ fixture, onCardAvailable }: Props) => {
   const [liveScorecard, setLiveScorecard] = useState(fixture.liveScorecard ? fixture.liveScorecard.scorecard : null);
   const timerRef = useRef<NodeJS.Timer | NodeJS.Timeout>();
 
@@ -124,6 +124,7 @@ const LiveScores = ({ fixture }: Props) => {
       if (fixture.liveScorecard) {
         const scorecardResponse = await fetch(fixture.liveScorecard.url);
         if (scorecardResponse.ok) {
+          onCardAvailable();
           setLiveScorecard(await scorecardResponse.json());
         }
       }

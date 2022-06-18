@@ -35,7 +35,7 @@ const getScorecardObjectName = (fixture: Fixture) => {
 const getLiveScorecardForFixture = async (fixture: Fixture) => {
   const url = `https://cleckheaton-cc-live-scorecards.s3.eu-west-2.amazonaws.com/${getScorecardObjectName(fixture)}`;
   const scorecardResponse = await fetch(url);
-  return { fixtureId: fixture._id, liveScorecard: scorecardResponse.ok ? { url, scorecard: await scorecardResponse.json() } : undefined };
+  return { fixtureId: fixture._id, liveScorecard: { url, scorecard: scorecardResponse.ok ? await scorecardResponse.json() : null } };
 };
 
 const addLiveScorecardsToFixtures = async (fixtures: Fixture[]) => {
