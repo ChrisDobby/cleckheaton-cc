@@ -21,7 +21,7 @@ export type Fixture = {
   matchballSponsorUrl?: string;
   competition: { name: string };
   teamSelection?: Player[];
-  liveScorecard?: { url: string; scorecard: any };
+  liveScorecard?: { url: string; scorecard: LiveScore };
 };
 
 export type DetailedFixture = Fixture & {
@@ -82,3 +82,40 @@ export type MatchDay = {
   tomorrowsFixtures: Fixture[];
   yesterdaysFixtures: Fixture[];
 };
+
+export type BattingInnings = {
+  name: string;
+  runs: string;
+  balls: string;
+  minutes: string;
+  fours: string;
+  sixes: string;
+  strikeRate: string;
+  howout: string[];
+};
+
+export type BowlingFigures = {
+  name: string;
+  overs: string;
+  maidens: string;
+  runs: string;
+  wickets: string;
+  wides: string;
+  noBalls: string;
+  economyRate: string;
+};
+
+type Batting = {
+  team: string;
+  innings: BattingInnings[];
+  total: string;
+  extras: string;
+};
+
+export type Innings = {
+  batting: Batting;
+  fallOfWickets: string;
+  bowling: BowlingFigures[];
+};
+
+export type LiveScore = Innings[];

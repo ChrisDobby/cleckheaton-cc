@@ -1,0 +1,144 @@
+.scores-total {
+  font-weight: 700;
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+}
+
+.scores-batting, .scores-bowling {
+  margin-bottom: 0.5em;
+  display: grid;
+  grid-template-columns: 1fr max-content max-content max-content max-content;
+  column-gap: 0.5em;
+}
+
+.scores-bowling {
+  margin-top: 0.5em;
+  row-gap: 0.5em;
+}
+
+.scores-batter-name {
+  grid-column: 1;
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+.scores-batter-runs {
+  grid-column: 2;
+  font-weight: 600;
+}
+
+.scores-batter-balls {
+  grid-column: 3;
+}
+
+.scores-batter-fours {
+  grid-column: 4;
+}
+
+.scores-batter-sixes {
+  grid-column: 5;
+}
+
+.scores-batter-howout {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  display: flex;
+  font-style: italic;
+  column-gap: 0.5em;
+  font-weight: 300;
+  margin-bottom: 0.5em;
+}
+
+.scores-batting-header {
+  text-align: center;
+}
+
+.scores-header-separator {
+  grid-column-start: 1;
+  grid-column-end: 6;
+  border-bottom: 1px solid #fff;
+  margin-bottom: 0.5em;
+  margin-top: -0.75em;
+}
+
+.scores-bowling .scores-header-separator {
+  margin-top: -1.25em;
+}
+
+.scores-batting-total {
+  display: flex;
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+.scores-batting-extras {
+  display: flex;
+  font-weight: 700;
+}
+
+.scores-total-header {
+  flex: 1;
+}
+
+.scores-batting-fow {
+  margin-top: 0.75em;
+  margin-bottom: 0.75em;
+  font-size: 0.875em;
+  font-style: italic;
+}
+
+.scores-fow-header {
+  font-weight: 700;
+  font-style: normal;
+}
+
+
+.scores-bowler-name {
+  grid-column: 1;
+  font-weight: 700;
+}
+
+.scores-bowler-overs {
+  grid-column: 2;
+}
+
+.scores-bowler-maidens {
+  grid-column: 3;
+}
+
+.scores-bowler-runs {
+  grid-column: 4;
+}
+
+.scores-bowler-wickets {
+  grid-column: 5;
+}
+
+.scores-innings-selected {
+  display: block;
+}
+
+.scores-innings-unselected {
+  display: none;
+}
+
+.scores-tabs {
+  margin-top: 0.5em;
+  margin-bottom: 1em;
+}
+
+.scores-tabs button {
+  width: 50%;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  background: transparent;
+  color: #fff;
+  font-size: 1.2em;
+  border: none;
+  cursor: pointer;
+  border-top: 1px solid #fff;
+}
+
+.scores-tabs .selected-tab {
+  border-bottom: 2px solid #f7ff1a;
+}
