@@ -142,3 +142,7 @@
 .scores-tabs .selected-tab {
   border-bottom: 2px solid #f7ff1a;
 }
+
+.scores-tabs.single-innings button {
+  width: 100%;
+}

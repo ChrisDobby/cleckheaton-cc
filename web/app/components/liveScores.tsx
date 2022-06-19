@@ -74,7 +74,7 @@ const Innings = ({ innings, selected }: InningsProps) => (
     <div className="scores-bowling">
       <BowlingHeader />
       {innings.bowling.map(bowling => (
-        <BowlingLine bowling={bowling} />
+        <BowlingLine key={bowling.name} bowling={bowling} />
       ))}
     </div>
   </div>
@@ -82,7 +82,7 @@ const Innings = ({ innings, selected }: InningsProps) => (
 
 type TabsProps = { innings: Innings[]; selectedIndex: number; onSelect: (index: number) => void };
 const Tabs = ({ innings, selectedIndex, onSelect }: TabsProps) => (
-  <div className="scores-tabs">
+  <div className={`scores-tabs ${innings.length === 1 ? 'single-innings' : ''}`}>
     {innings[0] && (
       <button className={selectedIndex === 0 ? 'selected-tab' : ''} onClick={() => onSelect(0)}>
         {innings[0].batting.team}
@@ -103,11 +103,11 @@ const Scores = ({ liveScore }: ScoreProps) => {
   return (
     <div>
       {liveScore.map(({ batting }) => (
-        <div className="scores-total">{`${batting.team} - ${batting.total}`}</div>
+        <div key={batting.team} className="scores-total">{`${batting.team} - ${batting.total}`}</div>
       ))}
       <Tabs innings={liveScore} selectedIndex={selectedIndex} onSelect={setSelectedIndex} />
       {liveScore.map((innings, index) => (
-        <Innings innings={innings} selected={selectedIndex === index} />
+        <Innings key={index} innings={innings} selected={selectedIndex === index} />
       ))}
     </div>
   );

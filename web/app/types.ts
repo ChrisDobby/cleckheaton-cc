@@ -21,7 +21,7 @@ export type Fixture = {
   matchballSponsorUrl?: string;
   competition: { name: string };
   teamSelection?: Player[];
-  liveScorecard?: { url: string; scorecard: LiveScore };
+  liveScorecard?: { url: string; scorecard?: LiveScore };
 };
 
 export type DetailedFixture = Fixture & {
