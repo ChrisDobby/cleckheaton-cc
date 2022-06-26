@@ -29,7 +29,7 @@ const getScorecardObjectName = (fixture: Fixture) => {
   const date = new Date(fixture.matchDate);
   const utc = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
   utc.setHours(1, 0, 0, 0);
-  return `1656115200000-${fixture.team === '1st' ? 'first' : 'second'}-team.json`;
+  return `1656201600000-${fixture.team === '1st' ? 'first' : 'second'}-team.json`;
 };
 
 const getLiveScorecardForFixture = async (fixture: Fixture) => {
