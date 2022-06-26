@@ -27,8 +27,11 @@ export const links = () => [
 
 const getScorecardObjectName = (fixture: Fixture) => {
   const date = new Date(fixture.matchDate);
-  const utc = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds()));
+  const utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours());
+  console.log('utc', utc);
   utc.setHours(1, 0, 0, 0);
+  console.log('utc', utc);
+  console.log('time', utc.getTime());
   return `1656201600000-${fixture.team === '1st' ? 'first' : 'second'}-team.json`;
 };
 
