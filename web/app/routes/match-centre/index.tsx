@@ -32,6 +32,8 @@ const getScorecardObjectName = (fixture: Fixture) => {
   utc.setHours(1, 0, 0, 0);
   console.log('utc', utc);
   console.log('time', utc.getTime());
+  console.log('time from utc', Date.UTC(utc.getUTCFullYear(), utc.getUTCMonth(), utc.getUTCDate()));
+  console.log('time from date', Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
   return `1656201600000-${fixture.team === '1st' ? 'first' : 'second'}-team.json`;
 };
 
