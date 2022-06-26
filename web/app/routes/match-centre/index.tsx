@@ -27,14 +27,8 @@ export const links = () => [
 
 const getScorecardObjectName = (fixture: Fixture) => {
   const date = new Date(fixture.matchDate);
-  const utc = new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours());
-  console.log('utc', utc);
-  utc.setHours(1, 0, 0, 0);
-  console.log('utc', utc);
-  console.log('time', utc.getTime());
-  console.log('time from utc', Date.UTC(utc.getUTCFullYear(), utc.getUTCMonth(), utc.getUTCDate()));
   console.log('time from date', Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate()));
-  return `1656201600000-${fixture.team === '1st' ? 'first' : 'second'}-team.json`;
+  return `${Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate())}-${fixture.team === '1st' ? 'first' : 'second'}-team.json`;
 };
 
 const getLiveScorecardForFixture = async (fixture: Fixture) => {

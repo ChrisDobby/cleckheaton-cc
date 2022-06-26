@@ -118,24 +118,43 @@ type Props = { fixture: Fixture; onCardAvailable: () => void };
 const LiveScores = ({ fixture, onCardAvailable }: Props) => {
   const [liveScorecard, setLiveScorecard] = useState(fixture.liveScorecard ? fixture.liveScorecard.scorecard : null);
   const timerRef = useRef<NodeJS.Timer | NodeJS.Timeout>();
+  const wakeupTimerRef = useRef<NodeJS.Timer | NodeJS.Timeout>();
+  const lastScorecardUpdate = useRef<number>();
+
+  const updateScorecard = async (scorecardUrl: string) => {
+    lastScorecardUpdate.current = Date.now();
+    const scorecardResponse = await fetch(scorecardUrl);
+    if (scorecardResponse.ok) {
+      onCardAvailable();
+      setLiveScorecard(await scorecardResponse.json());
+    }
+  };
 
   useEffect(() => {
     timerRef.current = setInterval(async () => {
       if (fixture.liveScorecard) {
-        const scorecardResponse = await fetch(fixture.liveScorecard.url);
-        if (scorecardResponse.ok) {
-          onCardAvailable();
-          setLiveScorecard(await scorecardResponse.json());
-        }
+        updateScorecard(fixture.liveScorecard.url);
       }
     }, 60000);
+
+    wakeupTimerRef.current = setInterval(() => {
+      if (fixture.liveScorecard?.url && lastScorecardUpdate.current && Date.now() - lastScorecardUpdate.current > 61000) {
+        console.log('out of date');
+        updateScorecard(fixture.liveScorecard.url);
+      }
+    }, 5000);
 
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
       }
+
+      if (wakeupTimerRef.current) {
+        clearTimeout(wakeupTimerRef.current);
+      }
     };
   }, []);
+
   return liveScorecard ? <Scores liveScore={liveScorecard} /> : <p>Live updates will appear here when available...</p>;
 };
 
