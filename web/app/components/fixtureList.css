@@ -1,3 +1,14 @@
+.fixtures-header {
+    background-color: #00529e;
+    border-radius: 4px;
+    padding: 8px;
+    opacity: 0.8;
+    margin-right: 16px;
+    color: #fff;
+    margin-top: 1rem;
+    text-align: center;
+}
+
 .fixture-list {
   background-color: #00529e;
   border-radius: 4px;
