@@ -1,4 +1,4 @@
-import { useLoaderData, MetaFunction } from 'remix';
+import { useLoaderData, MetaFunction, LoaderFunction } from 'remix';
 import { getMonth, getDate, getYear } from 'date-fns';
 import { getClient } from '~/sanity/getClient';
 import FixtureList from '~/components/fixtureList';
@@ -12,9 +12,12 @@ export const meta: MetaFunction = () => ({
   description: 'Cleckheaton Cricket Club fixtures for this season',
 });
 
-export async function loader() {
+export const loader: LoaderFunction = async ({ request }) => {
+  const url = new URL(request.url);
   const now = new Date();
-  const season = getMonth(now) < 9 || getDate(now) < 15 ? getYear(now) : getYear(now) + 1;
+  const currentSeason = getMonth(now) < 9 || getDate(now) < 15 ? getYear(now).toString() : (getYear(now) + 1).toString();
+
+  const season = url.searchParams.get('season') || currentSeason;
   const fixtures = await getClient().fetch(
     `*[_type == "fixture" && matchDate >= "${season}-01-01"]{ _id, matchDate, opposition, team, venue, "hasPreview": defined(preview), result, "hasReport": defined(report), scorecard, matchballSponsor, matchballSponsorUrl, competition->{name} }`,
   );
@@ -22,8 +25,9 @@ export async function loader() {
   return {
     fixtures,
     season,
+    isCurrentSeason: season === currentSeason,
   };
-}
+};
 
 export const links = () => [
   { rel: 'stylesheet', href: fixtureListStyles },
@@ -31,10 +35,10 @@ export const links = () => [
 ];
 
 export default function Index() {
-  const { fixtures, season } = useLoaderData<{ fixtures: Fixture[]; season: string }>();
+  const { fixtures, season, isCurrentSeason } = useLoaderData<{ fixtures: Fixture[]; season: number; isCurrentSeason: boolean }>();
   return (
     <>
-      <FixturesHeader season={season} fixtureCount={fixtures.length} />
+      <FixturesHeader season={season} fixtureCount={fixtures.length} isCurrentSeason={isCurrentSeason} />
       {fixtures.length > 0 && (
         <div className="fixture-list-grid">
           <FixtureList header="1ST TEAM FIXTURES" fixtures={fixtures.filter(({ team }) => team === '1st')} />
