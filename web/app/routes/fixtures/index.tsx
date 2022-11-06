@@ -15,7 +15,7 @@ export const meta: MetaFunction = () => ({
 export const loader: LoaderFunction = async ({ request }) => {
   const url = new URL(request.url);
   const now = new Date();
-  const currentSeason = getMonth(now) < 9 || getDate(now) < 15 ? getYear(now).toString() : (getYear(now) + 1).toString();
+  const currentSeason = getMonth(now) < 9 || (getMonth(now) === 9 && getDate(now) < 15) ? getYear(now).toString() : (getYear(now) + 1).toString();
 
   const season = url.searchParams.get('season') || currentSeason;
   const fixtures = await getClient().fetch(
