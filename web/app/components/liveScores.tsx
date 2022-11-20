@@ -1,6 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { BattingInnings, BowlingFigures, Fixture, Innings, LiveScore } from '../types';
 
+const eventName = {
+  '1st': 'first-team.json',
+  '2nd': 'second-team.json',
+};
+
 type BattingInningsProps = { batting: BattingInnings };
 const BattingInnings = ({ batting: { name, runs, balls, fours, sixes, howout } }: BattingInningsProps) => (
   <>
@@ -117,11 +122,10 @@ type Props = { fixture: Fixture; onCardAvailable: () => void };
 
 const LiveScores = ({ fixture, onCardAvailable }: Props) => {
   const [liveScorecard, setLiveScorecard] = useState(fixture.liveScorecard ? fixture.liveScorecard.scorecard : null);
-  const timerRef = useRef<NodeJS.Timer | NodeJS.Timeout>();
   const wakeupTimerRef = useRef<NodeJS.Timer | NodeJS.Timeout>();
   const lastScorecardUpdate = useRef<number>();
 
-  const updateScorecard = async (scorecardUrl: string) => {
+  const updateScorecardFromUrl = async (scorecardUrl: string) => {
     lastScorecardUpdate.current = Date.now();
     const scorecardResponse = await fetch(scorecardUrl);
     if (scorecardResponse.ok) {
@@ -130,30 +134,29 @@ const LiveScores = ({ fixture, onCardAvailable }: Props) => {
     }
   };
 
+  const handleScorecardUpdate = (({ detail: scorecard }: CustomEvent) => {
+    lastScorecardUpdate.current = Date.now();
+    onCardAvailable();
+    setLiveScorecard(scorecard.innings);
+  }) as EventListener;
+
   useEffect(() => {
-    timerRef.current = setInterval(async () => {
-      if (fixture.liveScorecard) {
-        updateScorecard(fixture.liveScorecard.url);
-      }
-    }, 60000);
+    window.addEventListener(eventName[fixture.team as '1st' | '2nd'], handleScorecardUpdate);
 
     wakeupTimerRef.current = setInterval(() => {
-      if (fixture.liveScorecard?.url && lastScorecardUpdate.current && Date.now() - lastScorecardUpdate.current > 61000) {
+      if (fixture.liveScorecard?.url && lastScorecardUpdate.current && Date.now() - lastScorecardUpdate.current > 180000) {
         console.log('out of date');
-        updateScorecard(fixture.liveScorecard.url);
+        updateScorecardFromUrl(fixture.liveScorecard.url);
       }
     }, 5000);
 
     return () => {
-      if (timerRef.current) {
-        clearTimeout(timerRef.current);
-      }
-
+      window.removeEventListener(eventName[fixture.team as '1st' | '2nd'], handleScorecardUpdate);
       if (wakeupTimerRef.current) {
         clearTimeout(wakeupTimerRef.current);
       }
     };
-  }, []);
+  }, [fixture.team]);
 
   return liveScorecard ? <Scores liveScore={liveScorecard} /> : <p>Live updates will appear here when available...</p>;
 };
