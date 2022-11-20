@@ -1,4 +1,5 @@
 import { redirect, useLoaderData } from 'remix';
+import { useEffect } from 'react';
 import { getClient } from '~/sanity/getClient';
 import Sponsors from '~/components/sponsors';
 import Matchday from '~/components/matchday';
@@ -14,6 +15,8 @@ import teamListStyles from '~/components/teamList.css';
 import carouselStyles from 'react-responsive-carousel/lib/styles/carousel.min.css';
 import playerSponsorStyles from '~/components/playerSponsor.css';
 import liveScoresStyles from '~/components/liveScores.css';
+
+import { registerForScorecardUpdates } from '../../scoreUpdates';
 
 export const links = () => [
   { rel: 'stylesheet', href: sponsorsStyles },
@@ -73,6 +76,10 @@ export default function Index() {
     sponsors,
     matchDay: { todaysFixtures, tomorrowsFixtures, yesterdaysFixtures },
   } = useLoaderData<{ sponsors: Sponsor[]; matchDay: MatchDay }>();
+
+  useEffect(() => {
+    registerForScorecardUpdates();
+  });
 
   return (
     <>

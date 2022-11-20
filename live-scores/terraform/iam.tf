@@ -292,6 +292,7 @@ resource "aws_iam_role_policy_attachment" "socket-connect-cloudwatch" {
   role       = aws_iam_role.socket-connect-role.name
   policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
 }
+
 resource "aws_iam_role" "socket-disconnect-role" {
   name               = "socket-disconnect"
   assume_role_policy = data.aws_iam_policy_document.lambda-assume-role.json
@@ -411,4 +412,54 @@ data "aws_iam_policy_document" "update-sanity-dynamo" {
 resource "aws_iam_role_policy_attachment" "update-sanity-dynamo" {
   role       = aws_iam_role.update-sanity-role.name
   policy_arn = aws_iam_policy.update-sanity-dynamo.arn
+}
+
+resource "aws_iam_role" "update-sockets-role" {
+  name               = "update-sockets"
+  assume_role_policy = data.aws_iam_policy_document.lambda-assume-role.json
+}
+
+resource "aws_iam_role_policy_attachment" "update-sockets-cloudwatch" {
+  role       = aws_iam_role.update-sockets-role.name
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+}
+
+resource "aws_iam_policy" "update-sockets-dynamo" {
+  name   = "update-sockets-dynamo"
+  policy = data.aws_iam_policy_document.update-sockets-dynamo.json
+}
+
+data "aws_iam_policy_document" "update-sockets-dynamo" {
+  statement {
+    actions = ["dynamodb:Scan"]
+
+    resources = [
+      aws_dynamodb_table.live-score-connections.arn
+    ]
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "update-sockets-dynamo" {
+  role       = aws_iam_role.update-sockets-role.name
+  policy_arn = aws_iam_policy.update-sockets-dynamo.arn
+}
+
+resource "aws_iam_policy" "update-sockets-api" {
+  name   = "update-sockets-api"
+  policy = data.aws_iam_policy_document.update-sockets-api.json
+}
+
+data "aws_iam_policy_document" "update-sockets-api" {
+  statement {
+    actions = ["execute-api:Invoke", "execute-api:ManageConnections"]
+
+    resources = [
+      "${aws_apigatewayv2_api.live-scores.execution_arn}/${aws_apigatewayv2_stage.live-scores-prod.name}/POST/@connections/{connectionId}"
+    ]
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "update-sockets-api" {
+  role       = aws_iam_role.update-sockets-role.name
+  policy_arn = aws_iam_policy.update-sockets-api.arn
 }
