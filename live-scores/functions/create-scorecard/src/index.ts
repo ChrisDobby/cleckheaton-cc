@@ -1,45 +1,8 @@
 import * as cheerio from 'cheerio';
 import { SNSClient, PublishCommand } from '@aws-sdk/client-sns';
+import { Scorecard, PlayerInnings, Innings, BowlingFigures, validateScorecard } from '@cleckheaton-ccc-live-scores/schema';
 
 const snsClient = new SNSClient({});
-
-type BowlingFigures = {
-  name: string;
-  overs: string;
-  maidens: string;
-  runs: string;
-  wickets: string;
-  wides: string;
-  noBalls: string;
-  economyRate: string;
-};
-
-type PlayerInnings = {
-  name: string;
-  runs: string;
-  balls: string;
-  minutes: string;
-  fours: string;
-  sixes: string;
-  strikeRate: string;
-  howout: string[];
-};
-
-type Innings = {
-  batting: {
-    innings: PlayerInnings[];
-    extras: string;
-    total: string;
-  };
-  fallOfWickets: string;
-  bowling: BowlingFigures[];
-};
-
-type Scorecard = {
-  teamName: string;
-  result: string | null;
-  innings: Innings[];
-};
 
 const { FIRST_TEAM_QUEUE_ARN: firstTeamQueueArn, SECOND_TEAM_QUEUE_ARN: secondTeamQueueArn, UPDATE_SNS_TOPIC_ARN: snsTopicArn } = process.env;
 
@@ -48,7 +11,7 @@ const teamName = {
   [`${secondTeamQueueArn}`]: 'secondTeam',
 };
 
-const getBowlingFigures = ($, row) => {
+const getBowlingFigures = ($, row): BowlingFigures => {
   const name = $('.nvp-scorecard__bowler', row).first().text();
   const overs = $('.nvp-scorecard__overs', row).first().text();
   const maidens = $('.nvp-scorecard__maidens', row).first().text();
@@ -70,7 +33,7 @@ const getBowlingFigures = ($, row) => {
   };
 };
 
-const getBowling = ($, bowlingTable) => {
+const getBowling = ($, bowlingTable): BowlingFigures[] => {
   const bowlingFigures: BowlingFigures[] = [];
   const bowlingRows = $('.nvp-scorecard__table-row', bowlingTable);
   for (const row of bowlingRows) {
@@ -80,7 +43,7 @@ const getBowling = ($, bowlingTable) => {
   return bowlingFigures;
 };
 
-const getFallOfWickets = ($, fowTable) => $('.nvp-scorecard__fall p', fowTable).first().text();
+const getFallOfWickets = ($, fowTable): string => $('.nvp-scorecard__fall p', fowTable).first().text();
 
 const getHowoutLine = ($, howoutLine) => {
   if (!howoutLine) {
@@ -99,7 +62,7 @@ const getHowout = ($, event) => {
   return [getHowoutLine($, howout1), getHowoutLine($, howout2)];
 };
 
-const getPlayerInnings = ($, playerInnings) => {
+const getPlayerInnings = ($, playerInnings): PlayerInnings => {
   const name = $('.nvp-scorecard__batsmen', playerInnings).first().text().trim();
   const runs = $('.nvp-scorecard__runs', playerInnings).first().text();
   const balls = $('.nvp-scorecard__balls', playerInnings).first().text();
@@ -121,12 +84,12 @@ const getPlayerInnings = ($, playerInnings) => {
   };
 };
 
-const getTotals = ($, totals) => {
+const getTotals = ($, totals): { extras: string; total: string } => {
   const [extras, total] = totals.children();
   return { extras: $('span', extras).text(), total: $('span', total).text() };
 };
 
-const getBatting = ($, batting, team) => {
+const getBatting = ($, batting, team): Innings['batting'] & { team: string } => {
   const playerInnings: PlayerInnings[] = [];
   const rows = $('.nvp-scorecard__table-row', batting);
   for (const row of rows) {
@@ -140,7 +103,7 @@ const getBatting = ($, batting, team) => {
   };
 };
 
-const getInnings = ($, innings, team) => {
+const getInnings = ($, innings, team): Innings => {
   const [battingTable, table2, table3] = $('.nvp-scorecard__table', innings);
   const batting = getBatting($, battingTable, team);
   const fallOfWickets = getFallOfWickets($, table2);
@@ -202,7 +165,7 @@ const publishToSns = scorecard => {
 
 const processRecord = ({ body, eventSourceARN }) => {
   const { scorecardHtml, headerHtml } = JSON.parse(body);
-  const scorecard = getScorecard(scorecardHtml, headerHtml, eventSourceARN);
+  const scorecard = validateScorecard(getScorecard(scorecardHtml, headerHtml, eventSourceARN));
   console.log(scorecard);
   return publishToSns(scorecard);
 };
