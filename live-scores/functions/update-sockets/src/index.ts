@@ -1,13 +1,13 @@
 import { DynamoDBClient, ScanCommand } from '@aws-sdk/client-dynamodb';
 import { ApiGatewayManagementApiClient, PostToConnectionCommand } from '@aws-sdk/client-apigatewaymanagementapi';
-import { validateScorecard } from '@cleckheaton-ccc-live-scores/schema';
+import { Scorecard, validateScorecard } from '@cleckheaton-ccc-live-scores/schema';
 
 const dynamoClient = new DynamoDBClient({ region: 'eu-west-2' });
 const TableName = 'cleckheaton-cc-live-score-connections';
 
 const apiGatewayClient = new ApiGatewayManagementApiClient({ region: 'eu-west-2', endpoint: `${process.env.SOCKET_ENDPOINT}` });
 
-const sendScorecard = scorecard => async connectionId => {
+const sendScorecard = (scorecard: Scorecard) => async connectionId => {
   const command = new PostToConnectionCommand({
     ConnectionId: connectionId,
     Data: Buffer.from(JSON.stringify(scorecard)),
