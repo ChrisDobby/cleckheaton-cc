@@ -35,11 +35,11 @@ export const put = (date: string, { firstTeam, secondTeam }: ScorecardUrls): Pro
   };
 
   if (firstTeam) {
-    dynamoItem.firstTeam = { S: firstTeam };
+    dynamoItem.firstTeam = firstTeam;
   }
 
   if (secondTeam) {
-    dynamoItem.secondTeam = { S: secondTeam };
+    dynamoItem.secondTeam = secondTeam;
   }
 
   return documentClient.send(new PutCommand({ TableName, Item: dynamoItem }));
