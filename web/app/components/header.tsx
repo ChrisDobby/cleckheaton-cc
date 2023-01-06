@@ -23,7 +23,7 @@ const Header = () => {
             <NavItem to="/" text="HOME" selected={pathname === '/' || pathname.startsWith('/match-centre')} />
             <NavItem to="/fixtures" text="FIXTURES" selected={pathname === '/fixtures'} />
             <NavItem to="/news" text="NEWS" selected={pathname === '/news'} />
-            <NavItem className="medium-only" to="/fixtures" text="PLAYERS" selected={pathname === '/players'} />
+            <NavItem className="medium-only" to="/players" text="PLAYERS" selected={pathname === '/players'} />
             <li>&nbsp;</li>
           </ul>
         </nav>
