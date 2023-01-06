@@ -19,7 +19,7 @@ export const loader: LoaderFunction = async ({ request }) => {
 
   const season = url.searchParams.get('season') || currentSeason;
   const fixtures = await getClient().fetch(
-    `*[_type == "fixture" && matchDate >= "${season}-01-01"]{ _id, matchDate, opposition, team, venue, "hasPreview": defined(preview), result, "hasReport": defined(report), scorecard, matchballSponsor, matchballSponsorUrl, competition->{name} }`,
+    `*[_type == "fixture" && matchDate >= "${season}-01-01" && matchDate <= "${season}-12-31"]{ _id, matchDate, opposition, team, venue, "hasPreview": defined(preview), result, "hasReport": defined(report), scorecard, matchballSponsor, matchballSponsorUrl, competition->{name} }`,
   );
 
   return {
