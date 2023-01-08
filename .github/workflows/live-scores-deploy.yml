@@ -21,8 +21,11 @@ jobs:
           node-version: 18.x
       - run: npm ci
         shell: bash
+        working-directory: live-scores
 
       - run: npm run package
+        working-directory: live-scores
+
       - uses: actions/upload-artifact@v3
         with:
           name: packages
