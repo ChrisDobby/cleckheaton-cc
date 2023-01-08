@@ -1,0 +1,30 @@
+name: Deploy live scores
+
+on:
+  push:
+    branches:
+      - gha
+    paths:
+      - 'live-scores/**'
+      - '.github/workflows/live-scores-deploy.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    name: 'Build'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18.x
+      - run: npm ci
+        shell: bash
+
+      - run: npm run package
+      - uses: actions/upload-artifact@v3
+        with:
+          name: packages
+          path: functions/dist/*.zip
+          retention-days: 1
