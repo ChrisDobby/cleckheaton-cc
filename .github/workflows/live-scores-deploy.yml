@@ -52,8 +52,8 @@ jobs:
 
       - uses: actions/download-artifact@v3
         with:
-          name: live-scores
-          path: live-scores
+          name: functions
+          path: live-scores/functions/dist
 
       - name: Initialise terraform
         shell: bash
