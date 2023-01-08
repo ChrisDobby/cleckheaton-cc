@@ -29,5 +29,5 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: packages
-          path: functions/dist/*.zip
+          path: live-scores/functions/dist/*.zip
           retention-days: 1
