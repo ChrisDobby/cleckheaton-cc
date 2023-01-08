@@ -23,7 +23,7 @@ jobs:
         shell: bash
         working-directory: live-scores
 
-      - run: npm run package
+      - run: npm run package:all
         working-directory: live-scores
 
       - uses: actions/upload-artifact@v3
