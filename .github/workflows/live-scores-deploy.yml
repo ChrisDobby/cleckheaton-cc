@@ -3,7 +3,7 @@ name: Deploy live scores
 on:
   push:
     branches:
-      - gha
+      - main
     paths:
       - 'live-scores/**'
       - '.github/workflows/live-scores-deploy.yml'
