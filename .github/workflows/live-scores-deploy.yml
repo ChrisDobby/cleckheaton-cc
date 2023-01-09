@@ -7,6 +7,7 @@ on:
     paths:
       - 'live-scores/**'
       - '.github/workflows/live-scores-deploy.yml'
+  workflow_dispatch:
 
 jobs:
   build:
