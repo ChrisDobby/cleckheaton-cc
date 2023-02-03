@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'remix';
+import { Link, useLocation } from '@remix-run/react';
 import logo from '~/images/cleck_badge.png';
 
 const NavItem = ({ to, text, selected, className }: { to: string; text: string; selected?: boolean; className?: string }) => (

@@ -1,4 +1,5 @@
-import { useLoaderData, MetaFunction } from 'remix';
+import { useLoaderData } from '@remix-run/react';
+import { MetaFunction } from '@remix-run/node';
 import { getClient } from '~/sanity/getClient';
 import { MatchReport } from '~/types';
 import Article from '~/components/article';
@@ -26,9 +27,7 @@ export const meta: MetaFunction = ({ data, params }) => {
 
 export async function loader({ params }: { params: { id: string } }) {
   const { id } = params;
-  const [fixture] = await getClient().fetch(
-    `*[_type == "fixture" && _id == "${id}"]{ _id, matchDate, opposition, team, venue, result, report, scorecard }`
-  );
+  const [fixture] = await getClient().fetch(`*[_type == "fixture" && _id == "${id}"]{ _id, matchDate, opposition, team, venue, result, report, scorecard }`);
 
   if (!fixture || !fixture.report) {
     throw new Response('Not Found', { status: 404 });
@@ -47,13 +46,9 @@ export default function Index() {
   const { result } = useLoaderData<{ result: MatchReport }>();
   console.log(result);
   return (
-    <Article
-      title={`${result.date}: ${result.description}`}
-      subtitle={result.result}
-      text={result.report}
-    >
+    <Article title={`${result.date}: ${result.description}`} subtitle={result.result} text={result.report}>
       {result.scorecard && (
-        <a style={{ color: '#fff' }} href={result.scorecard} target='_blank'>
+        <a style={{ color: '#fff' }} href={result.scorecard} target="_blank">
           Scorecard
         </a>
       )}

@@ -1,4 +1,5 @@
-import { redirect, useLoaderData } from 'remix';
+import { useLoaderData } from '@remix-run/react';
+import { redirect } from '@remix-run/node';
 import { useEffect } from 'react';
 import { getClient } from '~/sanity/getClient';
 import Sponsors from '~/components/sponsors';

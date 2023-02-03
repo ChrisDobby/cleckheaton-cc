@@ -1,4 +1,4 @@
-import { Link } from 'remix';
+import { Link } from '@remix-run/react';
 
 type Props = { season: number; fixtureCount: number; isCurrentSeason: boolean };
 const FixturesHeader = ({ season, fixtureCount, isCurrentSeason }: Props) => {

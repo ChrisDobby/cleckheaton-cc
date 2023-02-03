@@ -42,7 +42,7 @@ export type News = {
   title: string;
   subtitle: string;
   imageUrl: string;
-  description: any;
+  description: string;
 };
 
 export type Sponsor = {

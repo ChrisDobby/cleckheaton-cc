@@ -1,4 +1,5 @@
-import { useLoaderData, MetaFunction } from 'remix';
+import { useLoaderData } from '@remix-run/react';
+import { MetaFunction } from '@remix-run/node';
 import { getClient } from '~/sanity/getClient';
 import { MatchPreview } from '~/types';
 import Article from '~/components/article';
@@ -25,9 +26,7 @@ export const meta: MetaFunction = ({ data, params }) => {
 
 export async function loader({ params }: { params: { id: string } }) {
   const { id } = params;
-  const [fixture] = await getClient().fetch(
-    `*[_type == "fixture" && _id == "${id}"]{ _id, matchDate, opposition, team, venue, result, preview }`
-  );
+  const [fixture] = await getClient().fetch(`*[_type == "fixture" && _id == "${id}"]{ _id, matchDate, opposition, team, venue, result, preview }`);
 
   if (!fixture || !fixture.preview) {
     throw new Response('Not Found', { status: 404 });
@@ -42,11 +41,5 @@ export const CatchBoundary = idCatchBoundary('match preview');
 
 export default function Index() {
   const { preview } = useLoaderData<{ preview: MatchPreview }>();
-  return (
-    <Article
-      title={preview.description}
-      subtitle={preview.date}
-      text={preview.preview}
-    />
-  );
+  return <Article title={preview.description} subtitle={preview.date} text={preview.preview} />;
 }
