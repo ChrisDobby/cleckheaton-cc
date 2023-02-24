@@ -1,4 +1,5 @@
-import { useLoaderData, MetaFunction } from 'remix';
+import { useLoaderData } from '@remix-run/react';
+import { MetaFunction } from '@remix-run/node';
 import { getClient } from '~/sanity/getClient';
 import NewsList from '~/components/newsList';
 import { News } from '~/types';
@@ -9,9 +10,7 @@ export const meta: MetaFunction = () => ({
 });
 
 export async function loader() {
-  const news = await getClient().fetch(
-    `*[_type == "news"] | order(date desc) [0...20]{ _id, date, title, subtitle, "imageUrl":image.asset->url }`
-  );
+  const news = await getClient().fetch(`*[_type == "news"] | order(date desc) [0...20]{ _id, date, title, subtitle, "imageUrl":image.asset->url }`);
 
   return {
     news,

@@ -1,4 +1,5 @@
-import { useLoaderData, MetaFunction, LoaderFunction } from 'remix';
+import { useLoaderData } from '@remix-run/react';
+import { MetaFunction, LoaderFunction } from '@remix-run/node';
 import { getMonth, getDate, getYear } from 'date-fns';
 import { getClient } from '~/sanity/getClient';
 import FixtureList from '~/components/fixtureList';

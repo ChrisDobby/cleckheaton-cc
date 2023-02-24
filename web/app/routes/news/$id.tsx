@@ -1,4 +1,5 @@
-import { useLoaderData, MetaFunction } from 'remix';
+import { useLoaderData } from '@remix-run/react';
+import { MetaFunction } from '@remix-run/node';
 import { getClient } from '~/sanity/getClient';
 import { News } from '~/types';
 import Article from '~/components/article';
@@ -25,9 +26,7 @@ export const meta: MetaFunction = ({ data, params }) => {
 
 export async function loader({ params }: { params: { id: string } }) {
   const { id } = params;
-  const [newsItem] = await getClient().fetch(
-    `*[_type == "news" && _id == "${id}"]{ _id, date, title, subtitle, description, "imageUrl":image.asset->url }`
-  );
+  const [newsItem] = await getClient().fetch(`*[_type == "news" && _id == "${id}"]{ _id, date, title, subtitle, description, "imageUrl":image.asset->url }`);
 
   if (!newsItem) {
     throw new Response('Not Found', { status: 404 });
