@@ -28,9 +28,11 @@ data "aws_iam_policy_document" "s3" {
     actions = [
       "s3:PutObject",
       "s3:GetObject",
+      "s3:ListObjects",
     ]
 
     resources = [
+      aws_s3_bucket.notifications.arn,
       "${aws_s3_bucket.notifications.arn}/*",
     ]
   }

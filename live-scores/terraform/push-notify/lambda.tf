@@ -10,7 +10,8 @@ resource "aws_lambda_function" "push-notify" {
 
   environment {
     variables = merge({
-      PUSH_NOTIFY_TABLE_ARN = aws_s3_bucket.scorecards.bucket,
+      PUSH_NOTIFY_BUCKET_NAME = aws_s3_bucket.scorecards.bucket,
+      PUSH_TOPIC_ARN          = var.push_topic_arn,
     }, {})
   }
 }

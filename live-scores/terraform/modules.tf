@@ -83,4 +83,5 @@ module "push-notify" {
   source = "./push-notify"
 
   updated_topic_arn = aws_sns_topic.scorecard-updated.arn
+  push_topic_arn    = aws_sns_topic.push-notification.arn
 }
