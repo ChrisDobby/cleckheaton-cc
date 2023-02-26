@@ -85,3 +85,9 @@ module "push-notify" {
   updated_topic_arn = aws_sns_topic.scorecard-updated.arn
   push_topic_arn    = aws_sns_topic.push-notification.arn
 }
+
+module "subscribe-to-scores" {
+  source = "./subscribe-to-scores"
+
+  notifications_execution_arn = aws_apigatewayv2_api.notifications.execution_arn
+}

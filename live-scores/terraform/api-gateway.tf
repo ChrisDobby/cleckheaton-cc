@@ -1,3 +1,4 @@
+// live scores web socket
 resource "aws_apigatewayv2_api" "live-scores" {
   name                       = "cleckheaton-live-scores"
   protocol_type              = "WEBSOCKET"
@@ -54,6 +55,51 @@ resource "aws_apigatewayv2_deployment" "live-scores" {
       jsonencode(aws_apigatewayv2_integration.live-scores-disconnect),
       jsonencode(aws_apigatewayv2_route.live-scores-disconnect),
       jsonencode(aws_apigatewayv2_stage.live-scores-prod),
+    ]))
+  }
+
+  lifecycle {
+    create_before_destroy = true
+  }
+}
+
+// push notification registration
+resource "aws_apigatewayv2_api" "notifications" {
+  name          = "cleckheaton-notifications"
+  protocol_type = "HTTP"
+}
+
+resource "aws_apigatewayv2_integration" "notifications-subscribe" {
+  api_id           = aws_apigatewayv2_api.notifications.id
+  integration_type = "AWS_PROXY"
+
+  connection_type      = "INTERNET"
+  integration_uri      = module.subscribe-to-scores.invoke_arn
+  integration_method   = "POST"
+  passthrough_behavior = "WHEN_NO_MATCH"
+}
+
+resource "aws_apigatewayv2_route" "notifications-subscribe" {
+  api_id    = aws_apigatewayv2_api.notifications.id
+  route_key = "POST /subscribe-to-scores"
+  target    = "integrations/${aws_apigatewayv2_integration.notifications-subscribe.id}"
+}
+
+resource "aws_apigatewayv2_stage" "notifications-prod" {
+  api_id = aws_apigatewayv2_api.notifications.id
+  name   = "prod"
+}
+
+
+resource "aws_apigatewayv2_deployment" "notifications" {
+  api_id = aws_apigatewayv2_api.notifications.id
+
+  triggers = {
+    redeployment = sha1(join(",", [
+      jsonencode(aws_apigatewayv2_api.notifications),
+      jsonencode(aws_apigatewayv2_integration.notifications-subscribe),
+      jsonencode(aws_apigatewayv2_route.notifications-subscribe),
+      jsonencode(aws_apigatewayv2_stage.notifications-prod),
     ]))
   }
 
