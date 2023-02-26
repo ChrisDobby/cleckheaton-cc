@@ -10,6 +10,9 @@ const { SCORECARD_BUCKET_NAME: bucketName } = process.env;
 const emptyPush = {
   inningsNumber: 1,
   overs: 0,
+  wickets: [],
+  battingLandmarks: [],
+  bowlingLandmarks: [],
 };
 
 export const getLastPush = async (scorecard: Scorecard): Promise<Push> => {
