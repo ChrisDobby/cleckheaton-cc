@@ -67,5 +67,8 @@ jobs:
         working-directory: live-scores/terraform
         env:
           TF_VAR_SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+          TF_VAR_VAPID_SUBJECT: ${{ secrets.VAPID_SUBJECT }}
+          TF_VAR_VAPID_PUBLIC_KEY: ${{ secrets.VAPID_PUBLIC_KEY }}
+          TF_VAR_VAPID_PRIVATE_KEY: ${{ secrets.VAPID_PRIVATE_KEY }}
         run: |
           terraform apply -auto-approve

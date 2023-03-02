@@ -92,3 +92,13 @@ module "subscribe-to-scores" {
   notifications_execution_arn = aws_apigatewayv2_api.notifications.execution_arn
   subscriptions_table_arn     = aws_dynamodb_table.live-score-subscriptions.arn
 }
+
+module "web-notify" {
+  source = "./web-notify"
+
+  push_topic_arn          = aws_sns_topic.push-notification.arn
+  subscriptions_table_arn = aws_dynamodb_table.live-score-subscriptions.arn
+  vapid_subject           = var.VAPID_SUBJECT
+  vapid_public_key        = var.VAPID_PUBLIC_KEY
+  vapid_private_key       = var.VAPID_PRIVATE_KEY
+}
