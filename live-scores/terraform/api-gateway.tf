@@ -67,6 +67,12 @@ resource "aws_apigatewayv2_deployment" "live-scores" {
 resource "aws_apigatewayv2_api" "notifications" {
   name          = "cleckheaton-notifications"
   protocol_type = "HTTP"
+
+  cors_configuration {
+    allow_headers = ["*"]
+    allow_methods = ["POST"]
+    allow_origins = ["*"]
+  }
 }
 
 resource "aws_apigatewayv2_integration" "notifications-subscribe" {

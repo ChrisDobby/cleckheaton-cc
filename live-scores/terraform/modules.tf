@@ -90,4 +90,5 @@ module "subscribe-to-scores" {
   source = "./subscribe-to-scores"
 
   notifications_execution_arn = aws_apigatewayv2_api.notifications.execution_arn
+  subscriptions_table_arn     = aws_dynamodb_table.live-score-subscriptions.arn
 }
