@@ -7,6 +7,12 @@ resource "aws_lambda_function" "subscribe-to-scores" {
 
   runtime = "nodejs18.x"
   timeout = 10
+
+  environment {
+    variables = merge({
+      WEB_NOTIFY_QUEUE_URL = var.web_notify_queue_url,
+    }, {})
+  }
 }
 
 resource "aws_lambda_permission" "subscribe-to-scores" {

@@ -91,6 +91,8 @@ module "subscribe-to-scores" {
 
   notifications_execution_arn = aws_apigatewayv2_api.notifications.execution_arn
   subscriptions_table_arn     = aws_dynamodb_table.live-score-subscriptions.arn
+  web_notify_queue_url        = aws_sqs_queue.web-notify.url
+  web_notify_queue_arn        = aws_sqs_queue.web-notify.arn
 }
 
 module "web-notify" {

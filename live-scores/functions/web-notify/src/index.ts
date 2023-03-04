@@ -1,4 +1,4 @@
-import { Update, validateUpdate } from '@cleckheaton-ccc-live-scores/schema';
+import { Update, validateUpdate, validateWebNotification, WebNotification } from '@cleckheaton-ccc-live-scores/schema';
 import { push } from './push';
 import { getSubscriptions } from './dynamo';
 
@@ -17,9 +17,20 @@ const getBody = ({ type, text }: Update) => (type === 'wicket' ? `WICKET: ${text
 
 const createNotification = (update: Update) => ({ title: getTitle(update), body: getBody(update) });
 
-const handleMessage = async (message: unknown) => {
+const handleWebNotification = async (message: unknown) => {
+  const webNotification = validateWebNotification(message);
+  await push(webNotification, [webNotification.subscription]);
+};
+
+const handleUpdate = async (message: unknown) => push(createNotification(validateUpdate(message)), await getSubscriptions());
+
+const handleMessage = async (message: Update | WebNotification) => {
   console.log('Received message', message);
-  await push(createNotification(validateUpdate(message)), await getSubscriptions());
+  if ('subscription' in message) {
+    return handleWebNotification(message);
+  }
+
+  return handleUpdate(message);
 };
 
 export const handler = async ({ Records }) => {

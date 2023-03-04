@@ -38,3 +38,24 @@ resource "aws_iam_role_policy_attachment" "dynamo" {
   role       = aws_iam_role.subscribe-to-scores.name
   policy_arn = aws_iam_policy.dynamo.arn
 }
+
+
+resource "aws_iam_policy" "sqs" {
+  name   = "subscribe-to-scores-sqs"
+  policy = data.aws_iam_policy_document.sqs.json
+}
+
+data "aws_iam_policy_document" "sqs" {
+  statement {
+    actions = ["sqs:SendMessage"]
+
+    resources = [
+      var.web_notify_queue_arn
+    ]
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "sqs" {
+  role       = aws_iam_role.subscribe-to-scores.name
+  policy_arn = aws_iam_policy.sqs.arn
+}
