@@ -101,4 +101,5 @@ module "web-notify" {
   vapid_subject           = var.VAPID_SUBJECT
   vapid_public_key        = var.VAPID_PUBLIC_KEY
   vapid_private_key       = var.VAPID_PRIVATE_KEY
+  sqs_arn                 = aws_sqs_queue.web-notify.arn
 }

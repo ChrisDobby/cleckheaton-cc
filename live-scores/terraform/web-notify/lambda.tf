@@ -17,10 +17,8 @@ resource "aws_lambda_function" "web-notify" {
   }
 }
 
-resource "aws_lambda_permission" "web-notify" {
-  statement_id  = "AllowExecutionFromSNS"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.web-notify.function_name
-  principal     = "sns.amazonaws.com"
-  source_arn    = var.push_topic_arn
+resource "aws_lambda_event_source_mapping" "web-notify" {
+  event_source_arn = var.sqs_arn
+  function_name    = aws_lambda_function.web-notify.function_name
+  batch_size       = 10
 }

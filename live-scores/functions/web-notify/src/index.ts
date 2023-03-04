@@ -23,5 +23,5 @@ const handleMessage = async (message: unknown) => {
 };
 
 export const handler = async ({ Records }) => {
-  await Promise.all(Records.map(({ Sns: { Message } }) => handleMessage(JSON.parse(Message))));
+  await Promise.all(Records.map(({ body }) => handleMessage(JSON.parse(body))));
 };

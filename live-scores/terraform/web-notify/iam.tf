@@ -26,7 +26,7 @@ resource "aws_iam_policy" "dynamo" {
 
 data "aws_iam_policy_document" "dynamo" {
   statement {
-    actions = ["dynamodb:Query"]
+    actions = ["dynamodb:Scan"]
 
     resources = [
       var.subscriptions_table_arn
@@ -37,4 +37,28 @@ data "aws_iam_policy_document" "dynamo" {
 resource "aws_iam_role_policy_attachment" "dynamo" {
   role       = aws_iam_role.web-notify.name
   policy_arn = aws_iam_policy.dynamo.arn
+}
+
+resource "aws_iam_policy" "sqs" {
+  name   = "web-notify-sqs"
+  policy = data.aws_iam_policy_document.sqs.json
+}
+
+data "aws_iam_policy_document" "sqs" {
+  statement {
+    actions = [
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage",
+      "sqs:GetQueueAttributes"
+    ]
+
+    resources = [
+      var.sqs_arn
+    ]
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "sqs" {
+  role       = aws_iam_role.web-notify.name
+  policy_arn = aws_iam_policy.sqs.arn
 }
