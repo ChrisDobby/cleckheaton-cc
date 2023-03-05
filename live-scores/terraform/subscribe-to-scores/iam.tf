@@ -26,7 +26,7 @@ resource "aws_iam_policy" "dynamo" {
 
 data "aws_iam_policy_document" "dynamo" {
   statement {
-    actions = ["dynamodb:PutItem"]
+    actions = ["dynamodb:PutItem", "dynamodb:DeleteItem"]
 
     resources = [
       var.subscriptions_table_arn
