@@ -34,7 +34,7 @@ const SubscriptionPanel = () => {
       const subscription = await registration.pushManager.getSubscription();
       setIsSubscribed(Boolean(subscription));
       if (subscription) {
-        await api('subscribe', subscription);
+        await api('update', subscription);
       }
     };
 
@@ -56,8 +56,8 @@ const SubscriptionPanel = () => {
   };
 
   const text = isSubscribed
-    ? 'This device is subscribed to receive live score updates from Cleckheaton 1st and 2nd Team games'
-    : 'This device can be subscribed to receive live score updates from Cleckheaton 1st and 2nd Team games';
+    ? 'This device will receive live score updates from Cleckheaton 1st and 2nd Team games'
+    : 'This device can receive live score updates from Cleckheaton 1st and 2nd Team games';
   const labelText = isSubscribed ? 'Unsubscribe' : 'Subscribe';
   return (
     <div className="subscription-panel">

@@ -107,6 +107,23 @@ resource "aws_apigatewayv2_route" "notifications-unsubscribe" {
   target    = "integrations/${aws_apigatewayv2_integration.notifications-unsubscribe.id}"
 }
 
+
+resource "aws_apigatewayv2_integration" "notifications-update" {
+  api_id           = aws_apigatewayv2_api.notifications.id
+  integration_type = "AWS_PROXY"
+
+  connection_type      = "INTERNET"
+  integration_uri      = module.subscribe-to-scores.invoke_arn
+  integration_method   = "POST"
+  passthrough_behavior = "WHEN_NO_MATCH"
+}
+
+resource "aws_apigatewayv2_route" "notifications-update" {
+  api_id    = aws_apigatewayv2_api.notifications.id
+  route_key = "POST /update"
+  target    = "integrations/${aws_apigatewayv2_integration.notifications-update.id}"
+}
+
 resource "aws_apigatewayv2_stage" "notifications-prod" {
   api_id = aws_apigatewayv2_api.notifications.id
   name   = "prod"
@@ -122,6 +139,8 @@ resource "aws_apigatewayv2_deployment" "notifications" {
       jsonencode(aws_apigatewayv2_route.notifications-subscribe),
       jsonencode(aws_apigatewayv2_integration.notifications-unsubscribe),
       jsonencode(aws_apigatewayv2_route.notifications-unsubscribe),
+      jsonencode(aws_apigatewayv2_integration.notifications-update),
+      jsonencode(aws_apigatewayv2_route.notifications-update),
       jsonencode(aws_apigatewayv2_stage.notifications-prod),
     ])))
   }
