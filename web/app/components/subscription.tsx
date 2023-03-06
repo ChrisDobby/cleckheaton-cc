@@ -6,6 +6,7 @@ const api = async (route: string, subscription: unknown) =>
     body: JSON.stringify(subscription),
     headers: {
       'Content-Type': 'application/json',
+      Authorization: (window as any).ENV.API_KEY,
     },
   });
 

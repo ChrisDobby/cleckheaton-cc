@@ -105,3 +105,11 @@ module "web-notify" {
   vapid_private_key       = var.VAPID_PRIVATE_KEY
   sqs_arn                 = aws_sqs_queue.web-notify.arn
 }
+
+module "api_authoriser" {
+  source = "./api-authoriser"
+
+  notifications_execution_arn = aws_apigatewayv2_api.notifications.execution_arn
+  notifications_authoriser_id = aws_apigatewayv2_authorizer.notifications.id
+  api_key                     = var.API_KEY
+}

@@ -23,6 +23,7 @@ export async function loader() {
     ENV: {
       SUBSCRIPTION_URL: process.env.SUBSCRIPTION_URL,
       SUBSCRIPTION_PUBLIC_KEY: process.env.SUBSCRIPTION_PUBLIC_KEY,
+      API_KEY: process.env.API_KEY,
     },
   });
 }

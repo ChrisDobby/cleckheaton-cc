@@ -86,9 +86,11 @@ resource "aws_apigatewayv2_integration" "notifications-subscribe" {
 }
 
 resource "aws_apigatewayv2_route" "notifications-subscribe" {
-  api_id    = aws_apigatewayv2_api.notifications.id
-  route_key = "POST /subscribe"
-  target    = "integrations/${aws_apigatewayv2_integration.notifications-subscribe.id}"
+  api_id             = aws_apigatewayv2_api.notifications.id
+  route_key          = "POST /subscribe"
+  target             = "integrations/${aws_apigatewayv2_integration.notifications-subscribe.id}"
+  authorization_type = "CUSTOM"
+  authorizer_id      = aws_apigatewayv2_authorizer.notifications.id
 }
 
 resource "aws_apigatewayv2_integration" "notifications-unsubscribe" {
@@ -102,9 +104,11 @@ resource "aws_apigatewayv2_integration" "notifications-unsubscribe" {
 }
 
 resource "aws_apigatewayv2_route" "notifications-unsubscribe" {
-  api_id    = aws_apigatewayv2_api.notifications.id
-  route_key = "POST /unsubscribe"
-  target    = "integrations/${aws_apigatewayv2_integration.notifications-unsubscribe.id}"
+  api_id             = aws_apigatewayv2_api.notifications.id
+  route_key          = "POST /unsubscribe"
+  target             = "integrations/${aws_apigatewayv2_integration.notifications-unsubscribe.id}"
+  authorization_type = "CUSTOM"
+  authorizer_id      = aws_apigatewayv2_authorizer.notifications.id
 }
 
 
@@ -119,14 +123,26 @@ resource "aws_apigatewayv2_integration" "notifications-update" {
 }
 
 resource "aws_apigatewayv2_route" "notifications-update" {
-  api_id    = aws_apigatewayv2_api.notifications.id
-  route_key = "POST /update"
-  target    = "integrations/${aws_apigatewayv2_integration.notifications-update.id}"
+  api_id             = aws_apigatewayv2_api.notifications.id
+  route_key          = "POST /update"
+  target             = "integrations/${aws_apigatewayv2_integration.notifications-update.id}"
+  authorization_type = "CUSTOM"
+  authorizer_id      = aws_apigatewayv2_authorizer.notifications.id
 }
 
 resource "aws_apigatewayv2_stage" "notifications-prod" {
   api_id = aws_apigatewayv2_api.notifications.id
   name   = "prod"
+}
+
+resource "aws_apigatewayv2_authorizer" "notifications" {
+  api_id                            = aws_apigatewayv2_api.notifications.id
+  authorizer_type                   = "REQUEST"
+  authorizer_uri                    = module.api_authoriser.invoke_arn
+  name                              = "notifications-authoriser"
+  identity_sources                  = ["$request.header.Authorization"]
+  enable_simple_responses           = true
+  authorizer_payload_format_version = "2.0"
 }
 
 resource "aws_apigatewayv2_deployment" "notifications" {
@@ -140,6 +156,7 @@ resource "aws_apigatewayv2_deployment" "notifications" {
       jsonencode(aws_apigatewayv2_integration.notifications-unsubscribe),
       jsonencode(aws_apigatewayv2_route.notifications-unsubscribe),
       jsonencode(aws_apigatewayv2_integration.notifications-update),
+      jsonencode(aws_apigatewayv2_authorizer.notifications),
       jsonencode(aws_apigatewayv2_route.notifications-update),
       jsonencode(aws_apigatewayv2_stage.notifications-prod),
     ])))
