@@ -1,8 +1,11 @@
-import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react';
-import type { MetaFunction } from '@remix-run/node';
+import { Suspense } from 'react';
+import { Links, LiveReload, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react';
+import { json, MetaFunction } from '@remix-run/node';
 import Header from './components/header';
+import Subscription from './components/subscription';
 import headerStyles from './components/header.css';
 import rootStyles from './styles/root.css';
+import subscriptionStyles from './components/subscription.css';
 
 export const meta: MetaFunction = () => ({
   title: 'Cleckheaton Cricket Club',
@@ -12,9 +15,21 @@ export const meta: MetaFunction = () => ({
 export const links = () => [
   { rel: 'stylesheet', href: headerStyles },
   { rel: 'stylesheet', href: rootStyles },
+  { rel: 'stylesheet', href: subscriptionStyles },
 ];
 
+export async function loader() {
+  return json({
+    ENV: {
+      SUBSCRIPTION_URL: process.env.SUBSCRIPTION_URL,
+      SUBSCRIPTION_PUBLIC_KEY: process.env.SUBSCRIPTION_PUBLIC_KEY,
+      API_KEY: process.env.API_KEY,
+    },
+  });
+}
+
 export default function App() {
+  const data = useLoaderData<typeof loader>();
   return (
     <html lang="en">
       <head>
@@ -34,6 +49,9 @@ export default function App() {
             <div className="main">
               <Header />
               <div className="scroll-container">
+                <Suspense>
+                  <Subscription />
+                </Suspense>
                 <main>
                   <Outlet />
                 </main>
@@ -42,6 +60,11 @@ export default function App() {
           </div>
         </div>
 
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.ENV = ${JSON.stringify(data.ENV)}`,
+          }}
+        />
         <ScrollRestoration />
         <Scripts />
         {process.env.NODE_ENV === 'development' && <LiveReload />}
