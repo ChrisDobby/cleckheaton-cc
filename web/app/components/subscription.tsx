@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
 const api = async (route: string, subscription: unknown) =>
-  fetch(`${(window as any).ENV.SUBSCRIPTION_URL}/${route}`, {
+  fetch(`${window.ENV.SUBSCRIPTION_URL}/${route}`, {
     method: 'POST',
     body: JSON.stringify(subscription),
     headers: {
       'Content-Type': 'application/json',
-      Authorization: (window as any).ENV.API_KEY,
+      Authorization: window.ENV.API_KEY,
     },
   });
 
@@ -14,7 +14,7 @@ const subscribe = async () => {
   const registration = await navigator.serviceWorker.ready;
   const subscription = await registration.pushManager.subscribe({
     userVisibleOnly: true,
-    applicationServerKey: (window as any).ENV.SUBSCRIPTION_PUBLIC_KEY,
+    applicationServerKey: window.ENV.SUBSCRIPTION_PUBLIC_KEY,
   });
   await api('subscribe', subscription);
 };
