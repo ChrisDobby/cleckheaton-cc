@@ -51,8 +51,12 @@ const SubscriptionPanel = () => {
   const handleSubscriptionToggle = async () => {
     setIsUpdating(true);
     const promise = isSubscribed ? unsubscribe() : subscribe();
-    await promise;
-    setIsSubscribed(!isSubscribed);
+    try {
+      await promise;
+      setIsSubscribed(!isSubscribed);
+    } catch (e) {
+      alert('The subscription could not be created. Try enabling notifications for this browser in the device settings.');
+    }
     setIsUpdating(false);
   };
 
