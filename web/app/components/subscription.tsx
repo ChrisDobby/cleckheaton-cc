@@ -78,4 +78,22 @@ const SubscriptionPanel = () => {
   );
 };
 
-export default () => ('serviceWorker' in navigator && 'PushManager' in window && 'showNotification' in ServiceWorkerRegistration.prototype ? <SubscriptionPanel /> : null);
+const isSafari = () => navigator.userAgent.toLowerCase().includes('safari') && !navigator.userAgent.toLowerCase().includes('chrome');
+
+export default () => {
+  switch (true) {
+    case 'serviceWorker' in navigator && 'PushManager' in window && 'showNotification' in ServiceWorkerRegistration.prototype:
+      return <SubscriptionPanel />;
+    case isSafari():
+      return (
+        <p>
+          If you would like to get notifications of score updates you may need to{' '}
+          <a href="https://support.apple.com/en-gb/guide/iphone/iph42ab2f3a7/ios#:~:text=You%20can%20add%20a%20website,Home%20Screen%20for%20quick%20access.&text=in%20the%20menu%20bar%2C%20scroll,device%20where%20you%20add%20it.&text=Helpful%3F">
+            add this website to your homescreen
+          </a>
+        </p>
+      );
+    default:
+      return null;
+  }
+};
