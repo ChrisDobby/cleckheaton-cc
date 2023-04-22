@@ -4,7 +4,7 @@ const teamEventName = {
 };
 
 const registerForScorecardUpdates = () => {
-  const socket = new WebSocket(`${process.env.UPDATES_WEB_SOCKET_URL}`);
+  const socket = new WebSocket(`${window.ENV.UPDATES_WEB_SOCKET_URL}`);
   socket.addEventListener('open', () => {
     console.log('Connected to updates web socket');
   });

@@ -24,6 +24,7 @@ export async function loader() {
       SUBSCRIPTION_URL: process.env.SUBSCRIPTION_URL,
       SUBSCRIPTION_PUBLIC_KEY: process.env.SUBSCRIPTION_PUBLIC_KEY,
       API_KEY: process.env.API_KEY,
+      UPDATES_WEB_SOCKET_URL: process.env.UPDATES_WEB_SOCKET_URL,
     },
   });
 }
