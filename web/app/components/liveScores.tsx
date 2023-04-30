@@ -123,7 +123,7 @@ type Props = { fixture: Fixture; onCardAvailable: () => void };
 const LiveScores = ({ fixture, onCardAvailable }: Props) => {
   const [liveScorecard, setLiveScorecard] = useState(fixture.liveScorecard ? fixture.liveScorecard.scorecard : null);
   const wakeupTimerRef = useRef<NodeJS.Timer | NodeJS.Timeout>();
-  const lastScorecardUpdate = useRef<number>();
+  const lastScorecardUpdate = useRef(Date.now());
 
   const updateScorecardFromUrl = async (scorecardUrl: string) => {
     lastScorecardUpdate.current = Date.now();
@@ -144,7 +144,7 @@ const LiveScores = ({ fixture, onCardAvailable }: Props) => {
     window.addEventListener(eventName[fixture.team as '1st' | '2nd'], handleScorecardUpdate);
 
     wakeupTimerRef.current = setInterval(() => {
-      if (fixture.liveScorecard?.url && lastScorecardUpdate.current && Date.now() - lastScorecardUpdate.current > 180000) {
+      if (fixture.liveScorecard?.url && Date.now() - lastScorecardUpdate.current > 180000) {
         console.log('out of date');
         updateScorecardFromUrl(fixture.liveScorecard.url);
       }
