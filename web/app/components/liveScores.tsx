@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from 'react';
 import { BattingInnings, BowlingFigures, Fixture, Innings, LiveScore } from '../types';
 
 const eventName = {
-  '1st': 'first-team.json',
-  '2nd': 'second-team.json',
+  '1st': 'firstTeamScoreUpdate',
+  '2nd': 'secondTeamScoreUpdate',
 };
 
 type BattingInningsProps = { batting: BattingInnings };
@@ -118,9 +118,9 @@ const Scores = ({ liveScore }: ScoreProps) => {
   );
 };
 
-type Props = { fixture: Fixture; onCardAvailable: () => void };
+type Props = { fixture: Fixture; onCardAvailable: () => void; isLive?: boolean };
 
-const LiveScores = ({ fixture, onCardAvailable }: Props) => {
+const LiveScores = ({ fixture, onCardAvailable, isLive }: Props) => {
   const [liveScorecard, setLiveScorecard] = useState(fixture.liveScorecard ? fixture.liveScorecard.scorecard : null);
   const wakeupTimerRef = useRef<NodeJS.Timer | NodeJS.Timeout>();
   const lastScorecardUpdate = useRef(Date.now());
@@ -134,26 +134,30 @@ const LiveScores = ({ fixture, onCardAvailable }: Props) => {
     }
   };
 
-  const handleScorecardUpdate = (({ detail: scorecard }: CustomEvent) => {
+  const handleScorecardUpdate = (({ detail: scorecard }: CustomEvent<{ innings: LiveScore }>) => {
     lastScorecardUpdate.current = Date.now();
     onCardAvailable();
     setLiveScorecard(scorecard.innings);
   }) as EventListener;
 
   useEffect(() => {
-    window.addEventListener(eventName[fixture.team as '1st' | '2nd'], handleScorecardUpdate);
+    if (isLive) {
+      window.addEventListener(eventName[fixture.team as '1st' | '2nd'], handleScorecardUpdate);
 
-    wakeupTimerRef.current = setInterval(() => {
-      if (fixture.liveScorecard?.url && Date.now() - lastScorecardUpdate.current > 180000) {
-        console.log('out of date');
-        updateScorecardFromUrl(fixture.liveScorecard.url);
-      }
-    }, 5000);
+      wakeupTimerRef.current = setInterval(() => {
+        if (fixture.liveScorecard?.url && Date.now() - lastScorecardUpdate.current > 180000) {
+          console.log('out of date');
+          updateScorecardFromUrl(fixture.liveScorecard.url);
+        }
+      }, 5000);
+    }
 
     return () => {
-      window.removeEventListener(eventName[fixture.team as '1st' | '2nd'], handleScorecardUpdate);
-      if (wakeupTimerRef.current) {
-        clearTimeout(wakeupTimerRef.current);
+      if (isLive) {
+        window.removeEventListener(eventName[fixture.team as '1st' | '2nd'], handleScorecardUpdate);
+        if (wakeupTimerRef.current) {
+          clearTimeout(wakeupTimerRef.current);
+        }
       }
     };
   }, [fixture.team]);

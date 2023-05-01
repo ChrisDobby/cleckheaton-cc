@@ -85,7 +85,7 @@ export default function Index() {
   return (
     <>
       <Sponsors sponsors={sponsors} />
-      <Matchday day="TODAY" fixtures={todaysFixtures} />
+      <Matchday day="TODAY" fixtures={todaysFixtures} isLive />
       <Matchday day="YESTERDAY" fixtures={yesterdaysFixtures} />
       <Matchday day="TOMORROW" fixtures={tomorrowsFixtures} />
     </>

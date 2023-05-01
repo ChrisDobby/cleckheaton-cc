@@ -7,9 +7,9 @@ import MatchballSponsor from './matchballSponsor';
 import TeamList from './teamList';
 import LiveScores from './liveScores';
 
-type Props = { fixture: Fixture };
+type Props = { fixture: Fixture; isLive?: boolean };
 
-const MatchdayFixture = ({ fixture }: Props) => {
+const MatchdayFixture = ({ fixture, isLive }: Props) => {
   const [showingTeams, setShowingTeams] = useState(!fixture.liveScorecard?.scorecard);
   return (
     <article className="matchday-fixture">
@@ -40,7 +40,7 @@ const MatchdayFixture = ({ fixture }: Props) => {
           Match report
         </Link>
       )}
-      {!fixture.result && <LiveScores fixture={fixture} onCardAvailable={() => setShowingTeams(false)} />}
+      {!fixture.result && <LiveScores fixture={fixture} onCardAvailable={() => setShowingTeams(false)} isLive={isLive} />}
       {!fixture.result && showingTeams && fixture.teamSelection && fixture.teamSelection.length > 0 && (
         <div className="matchday-fixture-team-list">
           <TeamList players={fixture.teamSelection} />
