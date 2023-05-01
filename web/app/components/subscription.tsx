@@ -17,6 +17,7 @@ const subscribe = async () => {
     applicationServerKey: window.ENV.SUBSCRIPTION_PUBLIC_KEY,
   });
   await api('subscribe', subscription);
+  alert('You should now receive a confirmation notification. If you do not, try enabling notifications for this browser in the device settings.');
 };
 
 const unsubscribe = async () => {
