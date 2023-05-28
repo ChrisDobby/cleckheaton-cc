@@ -79,16 +79,23 @@ const SubscriptionPanel = () => {
   );
 };
 
-const isSafari = () => navigator.userAgent.toLowerCase().includes('safari') && !navigator.userAgent.toLowerCase().includes('chrome');
+const isIosWithSupportedWebpush = () => {
+  if (!window.navigator.userAgent.includes('iPhone') && !window.navigator.userAgent.includes('iPad')) {
+    return false;
+  }
+
+  const iosVersion = Number((/(iPhone|iPad) OS ([1-9]{1,2}[_]\d{1,2})/g.exec(window.navigator.userAgent)?.[2] || '0').replace('_', '.'));
+  return iosVersion >= 16.4;
+};
 
 export default () => {
   switch (true) {
     case 'serviceWorker' in navigator && 'PushManager' in window && 'showNotification' in ServiceWorkerRegistration.prototype:
       return <SubscriptionPanel />;
-    case isSafari():
+    case isIosWithSupportedWebpush():
       return (
-        <p>
-          If you would like to get notifications of score updates you may need to{' '}
+        <p className="subscription-panel">
+          If you would like to get notifications of score updates you may need to&nbsp;
           <a href="https://support.apple.com/en-gb/guide/iphone/iph42ab2f3a7/ios#:~:text=You%20can%20add%20a%20website,Home%20Screen%20for%20quick%20access.&text=in%20the%20menu%20bar%2C%20scroll,device%20where%20you%20add%20it.&text=Helpful%3F">
             add this website to your homescreen
           </a>
