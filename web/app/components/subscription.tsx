@@ -1,9 +1,28 @@
 import { useEffect, useState } from 'react';
 
-const api = async (route: string, subscription: unknown) =>
-  fetch(`${window.ENV.SUBSCRIPTION_URL}/${route}`, {
+const post = async (subscription: unknown) =>
+  fetch(`${window.ENV.SUBSCRIPTION_URL}/`, {
     method: 'POST',
     body: JSON.stringify(subscription),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: window.ENV.API_KEY,
+    },
+  });
+
+const put = async (subscription: unknown) =>
+  fetch(`${window.ENV.SUBSCRIPTION_URL}/`, {
+    method: 'PUT',
+    body: JSON.stringify(subscription),
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: window.ENV.API_KEY,
+    },
+  });
+
+const del = async (endpoint = '') =>
+  fetch(`${window.ENV.SUBSCRIPTION_URL}/${endpoint}`, {
+    method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
       Authorization: window.ENV.API_KEY,
@@ -16,14 +35,14 @@ const subscribe = async () => {
     userVisibleOnly: true,
     applicationServerKey: window.ENV.SUBSCRIPTION_PUBLIC_KEY,
   });
-  await api('subscribe', subscription);
+  await post(subscription);
   alert('You should now receive a confirmation notification. If you do not, try enabling notifications for this browser in the device settings.');
 };
 
 const unsubscribe = async () => {
   const registration = await navigator.serviceWorker.ready;
   const subscription = await registration.pushManager.getSubscription();
-  await Promise.all([api('unsubscribe', subscription), subscription?.unsubscribe()]);
+  await Promise.all([del(subscription?.endpoint), subscription?.unsubscribe()]);
 };
 
 const SubscriptionPanel = () => {
@@ -36,7 +55,7 @@ const SubscriptionPanel = () => {
       const subscription = await registration.pushManager.getSubscription();
       setIsSubscribed(Boolean(subscription));
       if (subscription) {
-        await api('update', subscription);
+        await put(subscription);
       }
     };
 
