@@ -21,7 +21,7 @@ const put = async (subscription: unknown) =>
   });
 
 const del = async (endpoint = '') =>
-  fetch(`${window.ENV.SUBSCRIPTION_URL}/${endpoint}`, {
+  fetch(`${window.ENV.SUBSCRIPTION_URL}?endpoint=${endpoint}`, {
     method: 'DELETE',
     headers: {
       'Content-Type': 'application/json',
